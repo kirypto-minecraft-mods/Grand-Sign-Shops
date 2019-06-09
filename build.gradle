@@ -42,14 +42,25 @@ minecraft {
     clientRunArgs += "--uuid=01924a5f-da15-472e-82df-8a24066efa77 --username=kirypto"
 }
 
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
 dependencies {
+//    minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2768'
+//    deobfCompile 'libs/GrandEconomy-1.12.2-1.1.2-deobf.jar'
+//    compile 'GrandEconomy-1.12.2-1.1.2-deobf.jar'
+//    deobfProvided 'GrandEconomy-1.12.2-1.1.2-deobf.jar'
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
     //compile "some.group:artifact:version:classifier"
+    compile 'the_fireplace.grandeconomy:GrandEconomy-1.12.2:1.1.2-deobf'
     //compile "some.group:artifact:version"
       
     // real examples
-    //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
+//    compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
     //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
 
     // the 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
