@@ -2,13 +2,17 @@ buildscript {
     repositories {
         jcenter()
         maven {
-            name = "forge" 
-            url = "http://files.minecraftforge.net/maven" 
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
         }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
     }
+}
+
+plugins {
+    id "com.matthewprenger.cursegradle" version "1.3.0"
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
@@ -81,3 +85,18 @@ processResources {
     }
 }
 
+curseforge {
+    apiKey = project.hasProperty("curseForgeApiKey") ? project.curseForgeApiKey : "empty"
+    project {
+        id = '323919'
+        changelog = file('changelog.txt')
+        releaseType = 'alpha'
+        addGameVersion '1.12.2'
+        mainArtifact(jar) {
+            displayName = jar.archiveName.replace(".jar", "")
+            relations {
+                requiredDependency 'grand-economy'
+            }
+        }
+    }
+}
