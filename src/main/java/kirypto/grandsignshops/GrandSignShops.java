@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 public final class GrandSignShops {
     public static final String MOD_ID = "grandsignshops";
     public static final String MODNAME = "Grand Sign Shops";
-    public static final String VERSION = "1.0.1";
+    public static final String VERSION = "1.0.0-alpha2";
 
     @Mod.Instance(GrandSignShops.MOD_ID)
     public static GrandSignShops instance;
