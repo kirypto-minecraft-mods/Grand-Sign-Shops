@@ -14,7 +14,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import the_fireplace.grandeconomy.GrandEconomy;
 import the_fireplace.grandeconomy.api.GrandEconomyApi;
 
 import static java.lang.String.format;
@@ -55,6 +54,9 @@ public class ForgeEventHandlers {
             int earnings = 42;
             sendPlayerMessage(player, format("You just %s clicked on a sign with the pass phrase, earning %s!", clickType, earnings));
             GrandEconomyApi.addToBalance(player.getUniqueID(), earnings, true);
+
+            tileEntitySign.signText[0] = new TextComponentString("Test");
+
         } else {
             sendPlayerMessage(player, format("The sign did not have the pass phrase... It just said '%s'", fullSignText));
         }
