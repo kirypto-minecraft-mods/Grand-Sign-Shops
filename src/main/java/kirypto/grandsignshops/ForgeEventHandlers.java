@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 import the_fireplace.grandeconomy.api.GrandEconomyApi;
 
 import static java.lang.String.format;
+import static kirypto.grandsignshops.Utilities.sendPlayerMessage;
 
 public class ForgeEventHandlers {
 
@@ -60,9 +61,5 @@ public class ForgeEventHandlers {
         } else {
             sendPlayerMessage(player, format("The sign did not have the pass phrase... It just said '%s'", fullSignText));
         }
-    }
-
-    private void sendPlayerMessage(EntityPlayer player, String message) {
-        player.sendMessage(new TextComponentString(message));
     }
 }
