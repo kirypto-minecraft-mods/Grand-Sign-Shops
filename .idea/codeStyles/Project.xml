@@ -292,6 +292,9 @@
       <option name="FROM_INDENT_JOIN" value="false" />
       <option name="FROM_ONLY_JOIN_INDENT" value="1" />
     </MSSQLCodeStyleSettings>
+    <MarkdownNavigatorCodeStyleSettings>
+      <option name="RIGHT_MARGIN" value="-1" />
+    </MarkdownNavigatorCodeStyleSettings>
     <MySQLCodeStyleSettings version="2">
       <option name="KEYWORD_CASE" value="0" />
       <option name="TYPE_CASE" value="1" />
