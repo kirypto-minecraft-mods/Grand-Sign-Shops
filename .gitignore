@@ -116,3 +116,6 @@ gradle-app.setting
 ####################################################################################################
 
 gradle.properties
+
+# IntelliJ pluggin Markdown Navigator
+markdown-navigator*
