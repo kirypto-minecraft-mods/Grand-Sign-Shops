@@ -28,12 +28,12 @@ public class CommandSignShopCreate extends CommandBase {
 
     @Override
     public String getName() {
-        return "gshops";
+        return "gshops_old";
     }
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "/gshops create <item> <meta> <buy_price_high> <buy_price_low> <sell_price_high> <sell_price_low>";
+        return "/gshops_old create <item> <meta> <buy_price_high> <buy_price_low> <sell_price_high> <sell_price_low>";
     }
 
     @Override
