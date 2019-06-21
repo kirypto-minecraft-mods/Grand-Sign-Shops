@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import kirypto.grandsignshops.IGrandSignShopRepository;
+import kirypto.grandsignshops.GrandSignShopRepository;
 import mcp.MethodsReturnNonnullByDefault;
 
 import static java.lang.String.format;
@@ -20,9 +20,9 @@ import static kirypto.grandsignshops.Utilities.sendPlayerMessage;
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class CommandSignShopCreate extends CommandBase {
-    private final IGrandSignShopRepository grandSignShopRepository;
+    private final GrandSignShopRepository grandSignShopRepository;
 
-    public CommandSignShopCreate(IGrandSignShopRepository grandSignShopRepository) {
+    public CommandSignShopCreate(GrandSignShopRepository grandSignShopRepository) {
         this.grandSignShopRepository = grandSignShopRepository;
     }
 

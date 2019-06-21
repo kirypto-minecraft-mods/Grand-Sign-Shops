@@ -40,7 +40,7 @@ public final class GrandSignShops {
         getWorldSaveFolder(server)
                 .map(worldSaveFolder -> new File(worldSaveFolder, "GrandSignShops"))
                 .ifPresent(grandSignShopsRootFolder -> {
-                    GrandSignShopRepository grandSignShopRepository = new GrandSignShopRepository(grandSignShopsRootFolder);
+                    GrandSignShopRepository grandSignShopRepository = new JsonGrandSignShopRepository(grandSignShopsRootFolder);
 
                     manager.registerCommand(new CommandSignShopCreate(grandSignShopRepository));
                     manager.registerCommand(new MainCommandHandler());
