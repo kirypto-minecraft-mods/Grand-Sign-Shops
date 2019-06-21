@@ -16,6 +16,7 @@ import java.io.File;
 import java.util.Optional;
 
 import kirypto.grandsignshops.Commands.CommandSignShopCreate;
+import kirypto.grandsignshops.Commands.MainCommandHandler;
 import the_fireplace.grandeconomy.economy.Account;
 
 @Mod(modid = GrandSignShops.MOD_ID, name = GrandSignShops.MODNAME, version = GrandSignShops.VERSION,
@@ -42,6 +43,7 @@ public final class GrandSignShops {
                     GrandSignShopRepository grandSignShopRepository = new GrandSignShopRepository(grandSignShopsRootFolder);
 
                     manager.registerCommand(new CommandSignShopCreate(grandSignShopRepository));
+                    manager.registerCommand(new MainCommandHandler());
                 });
     }
 
