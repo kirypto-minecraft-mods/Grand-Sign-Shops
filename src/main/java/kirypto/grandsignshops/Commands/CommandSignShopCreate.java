@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import kirypto.grandsignshops.GrandSignShopRepository;
+import kirypto.grandsignshops.Repository.GrandSignShopRepository;
 import mcp.MethodsReturnNonnullByDefault;
 
 import static java.lang.String.format;

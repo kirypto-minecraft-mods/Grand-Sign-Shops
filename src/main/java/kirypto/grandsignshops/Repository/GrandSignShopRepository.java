@@ -1,4 +1,4 @@
-package kirypto.grandsignshops;
+package kirypto.grandsignshops.Repository;
 
 public interface GrandSignShopRepository {
 }
