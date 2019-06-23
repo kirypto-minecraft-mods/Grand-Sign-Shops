@@ -1,5 +1,6 @@
 package kirypto.grandsignshops.Commands;
 
+import net.minecraft.command.CommandException;
 import net.minecraft.entity.player.EntityPlayerMP;
 
 import java.util.List;
@@ -18,5 +19,5 @@ public interface GShopsSubCommandHandler {
 
     String getSubCommandHelp();
 
-    void executeSubCommand(EntityPlayerMP player, List<String> commandArgs);
+    void executeSubCommand(EntityPlayerMP player, List<String> commandArgs) throws CommandException;
 }
