@@ -32,8 +32,7 @@ public class MainCommandHandler extends CommandBase {
 
     public MainCommandHandler(UnclosedCommandRepository unclosedCommandRepository) {
         this.subCommandHandlers = Stream.of(
-                new CreateShopCommandHandler(unclosedCommandRepository),
-                new TestHandler()
+                new CreateShopCommandHandler(unclosedCommandRepository)
         ).collect(Collectors.toMap(GShopsSubCommandHandler::getSubCommandName, subCommandHandler -> subCommandHandler));
     }
 
