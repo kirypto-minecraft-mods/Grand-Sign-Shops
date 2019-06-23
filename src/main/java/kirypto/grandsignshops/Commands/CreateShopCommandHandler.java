@@ -20,14 +20,15 @@ public class CreateShopCommandHandler implements GShopsSubCommandHandler {
 
     @Override
     public String getSubCommandUsage() {
-        return "<item> <meta> <buy_price_high> <buy_price_low> <sell_price_high> <sell_price_low>";
+        return "<item> <meta> <buy_high> <buy_low> <sell_high> <sell_low>";
     }
 
     @Override
     public String getSubCommandHelp() {
-        return ("<item> and <meta> specifies the item type for the shop. <buy_price_low> and <sell_price_low> is used when the chest is nearly " +
-                "empty, <buy_price_high> and <sell_price_high> is used when the chest is full, and buy/sell prices are interpolated between these " +
-                "values depending how the full the chest is.");
+        return ("\n    - <item> and <meta> specifies the item type for the shop." +
+                "\n    - <buy_low> and <sell_low> is used when the chest is nearly empty" +
+                "\n    - <buy_high> and <sell_high> is used when the chest is full" +
+                "\n    - buy/sell prices are interpolated between these values depending how the full the chest is.");
     }
 
     @Override
