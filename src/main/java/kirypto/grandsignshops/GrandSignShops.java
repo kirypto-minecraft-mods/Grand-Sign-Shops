@@ -19,6 +19,8 @@ import kirypto.grandsignshops.Commands.CommandSignShopCreate;
 import kirypto.grandsignshops.Commands.MainCommandHandler;
 import kirypto.grandsignshops.Repository.GrandSignShopRepository;
 import kirypto.grandsignshops.Repository.JsonGrandSignShopRepository;
+import kirypto.grandsignshops.Repository.InMemoryUnclosedCommandRepository;
+import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 import the_fireplace.grandeconomy.economy.Account;
 
 @Mod(modid = GrandSignShops.MOD_ID, name = GrandSignShops.MODNAME, version = GrandSignShops.VERSION,
@@ -43,6 +45,7 @@ public final class GrandSignShops {
                 .map(worldSaveFolder -> new File(worldSaveFolder, "GrandSignShops"))
                 .ifPresent(grandSignShopsRootFolder -> {
                     GrandSignShopRepository grandSignShopRepository = new JsonGrandSignShopRepository(grandSignShopsRootFolder);
+                    UnclosedCommandRepository unclosedCommandRepository = new InMemoryUnclosedCommandRepository();
 
                     manager.registerCommand(new CommandSignShopCreate(grandSignShopRepository));
                     manager.registerCommand(new MainCommandHandler());
