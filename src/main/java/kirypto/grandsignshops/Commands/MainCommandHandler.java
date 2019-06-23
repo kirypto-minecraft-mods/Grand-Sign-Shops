@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 import mcp.MethodsReturnNonnullByDefault;
 
 import static java.lang.String.format;
@@ -29,9 +30,9 @@ public class MainCommandHandler extends CommandBase {
 
     private final Map<String, GShopsSubCommandHandler> subCommandHandlers;
 
-    public MainCommandHandler() {
+    public MainCommandHandler(UnclosedCommandRepository unclosedCommandRepository) {
         this.subCommandHandlers = Stream.of(
-                new CreateShopCommandHandler(),
+                new CreateShopCommandHandler(unclosedCommandRepository),
                 new TestHandler()
         ).collect(Collectors.toMap(GShopsSubCommandHandler::getSubCommandName, subCommandHandler -> subCommandHandler));
     }

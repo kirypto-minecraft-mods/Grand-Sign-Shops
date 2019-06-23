@@ -48,7 +48,7 @@ public final class GrandSignShops {
                     UnclosedCommandRepository unclosedCommandRepository = new InMemoryUnclosedCommandRepository();
 
                     manager.registerCommand(new CommandSignShopCreate(grandSignShopRepository));
-                    manager.registerCommand(new MainCommandHandler());
+                    manager.registerCommand(new MainCommandHandler(unclosedCommandRepository));
                 });
     }
 

@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 import mcp.MethodsReturnNonnullByDefault;
 
 import static java.lang.String.format;
@@ -20,7 +21,10 @@ import static kirypto.grandsignshops.Utilities.sendPlayerMessage;
 @MethodsReturnNonnullByDefault
 public class CreateShopCommandHandler implements GShopsSubCommandHandler {
 
-    public CreateShopCommandHandler() {
+    private final UnclosedCommandRepository unclosedCommandRepository;
+
+    public CreateShopCommandHandler(UnclosedCommandRepository unclosedCommandRepository) {
+        this.unclosedCommandRepository = unclosedCommandRepository;
     }
 
     @Override
