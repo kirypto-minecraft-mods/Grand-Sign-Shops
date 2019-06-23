@@ -30,8 +30,10 @@ public class MainCommandHandler extends CommandBase {
     private final Map<String, GShopsSubCommandHandler> subCommandHandlers;
 
     public MainCommandHandler() {
-        this.subCommandHandlers = Stream.of(new TestHandler())
-                .collect(Collectors.toMap(GShopsSubCommandHandler::getSubCommandName, subCommandHandler -> subCommandHandler));
+        this.subCommandHandlers = Stream.of(
+                new CreateShopCommandHandler(),
+                new TestHandler()
+        ).collect(Collectors.toMap(GShopsSubCommandHandler::getSubCommandName, subCommandHandler -> subCommandHandler));
     }
 
     @Override
