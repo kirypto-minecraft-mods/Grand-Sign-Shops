@@ -15,11 +15,10 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import java.io.File;
 import java.util.Optional;
 
-import kirypto.grandsignshops.Commands.CommandSignShopCreate;
 import kirypto.grandsignshops.Commands.MainCommandHandler;
 import kirypto.grandsignshops.Repository.GrandSignShopRepository;
-import kirypto.grandsignshops.Repository.JsonGrandSignShopRepository;
 import kirypto.grandsignshops.Repository.InMemoryUnclosedCommandRepository;
+import kirypto.grandsignshops.Repository.JsonGrandSignShopRepository;
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 import the_fireplace.grandeconomy.economy.Account;
 
@@ -47,7 +46,6 @@ public final class GrandSignShops {
                     GrandSignShopRepository grandSignShopRepository = new JsonGrandSignShopRepository(grandSignShopsRootFolder);
                     UnclosedCommandRepository unclosedCommandRepository = new InMemoryUnclosedCommandRepository();
 
-                    manager.registerCommand(new CommandSignShopCreate(grandSignShopRepository));
                     manager.registerCommand(new MainCommandHandler(unclosedCommandRepository));
                 });
     }
