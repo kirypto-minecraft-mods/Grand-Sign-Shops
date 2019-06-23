@@ -84,8 +84,12 @@ public class MainCommandHandler extends CommandBase {
             throw new WrongUsageException(format("%s has no sub-command '%s'", GRAND_SIGH_SHOPS_ROOT_COMMAND, subCommand));
         }
 
-        sendPlayerMessage(player, format("Usage: /%s %s\n    Help: %s", GRAND_SIGH_SHOPS_ROOT_COMMAND, subCommand,
-                                         subCommandHandlers.get(subCommand).getSubCommandHelp()));
+        GShopsSubCommandHandler subCommandHandler = subCommandHandlers.get(subCommand);
+        sendPlayerMessage(player, format("Usage: /%s %s %s\n    Help: %s",
+                                         GRAND_SIGH_SHOPS_ROOT_COMMAND,
+                                         subCommand,
+                                         subCommandHandler.getSubCommandUsage(),
+                                         subCommandHandler.getSubCommandHelp()));
     }
 }
 
