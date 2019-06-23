@@ -21,12 +21,19 @@ class TestHandler implements GShopsSubCommandHandler {
     }
 
     @Override
+    public String getSubCommandUsage() {
+        return "<item> <amount>";
+    }
+
+    @Override
     public String getSubCommandHelp() {
-        return "item amount";
+        return "Does nothing except printing a success message with the item and amount.";
     }
 
     @Override
     public void executeSubCommand(EntityPlayerMP player, List<String> commandArgs) {
-        Utilities.sendPlayerMessage(player, format("Successfully ran command %s!", getSubCommandName()));
+        Utilities.sendPlayerMessage(player, format("Successfully ran command %s! Params: %s",
+                                                   getSubCommandName(),
+                                                   commandArgs));
     }
 }

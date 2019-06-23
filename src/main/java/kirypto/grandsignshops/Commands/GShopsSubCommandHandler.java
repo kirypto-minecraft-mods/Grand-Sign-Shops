@@ -14,6 +14,8 @@ public interface GShopsSubCommandHandler {
 
     String getSubCommandName();
 
+    String getSubCommandUsage();
+
     String getSubCommandHelp();
 
     void executeSubCommand(EntityPlayerMP player, List<String> commandArgs);
