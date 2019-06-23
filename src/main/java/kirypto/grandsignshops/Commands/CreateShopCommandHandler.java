@@ -70,7 +70,7 @@ public class CreateShopCommandHandler implements GShopsSubCommandHandler {
         if (sellPriceLow <= 0) {
             throw new WrongUsageException("Error: Sell price (low) cannot be less than 1");
         }
-        if (sellPriceHigh < buyPriceLow) {
+        if (sellPriceHigh < sellPriceLow) {
             throw new WrongUsageException("Error: Sell price (high) cannot be less than buy price (low)");
         }
 
