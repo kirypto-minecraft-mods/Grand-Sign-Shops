@@ -4,6 +4,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.text.TextComponentString;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -36,5 +38,10 @@ public class SignEventHandler {
         GrandEconomyApi.addToBalance(player.getUniqueID(), earnings, true);
 
         tileEntitySign.signText[0] = new TextComponentString("Test");
+
+        unclosedCommandRepository.retrieveByPlayer(player.getUniqueID()).ifPresent(unclosedShopCommand -> {
+            Duration timeSinceCration = Duration.between(unclosedShopCommand.getCreationTime(), Instant.now());
+            sendPlayerMessage(player, format("Found matching command, created %s ago.", timeSinceCration));
+        });
     }
 }
