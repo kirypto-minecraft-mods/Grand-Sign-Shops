@@ -1,27 +1,33 @@
 package kirypto.grandsignshops.Repository;
 
-import org.apache.commons.lang3.NotImplementedException;
-
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
 import kirypto.grandsignshops.UnclosedShopCommand;
 
 public class InMemoryUnclosedCommandRepository implements UnclosedCommandRepository {
-    public InMemoryUnclosedCommandRepository() { }
 
-    @Override
-    public void save(UnclosedShopCommand unclosedShopCommand) {
-        throw new NotImplementedException("");
+    private final Map<UUID, UnclosedShopCommand> unclosedShopCommands;
+
+    public InMemoryUnclosedCommandRepository() {
+        unclosedShopCommands = new LinkedHashMap<>();
     }
 
     @Override
-    public Optional<UnclosedShopCommand> retrieveByPlayer(UUID playerUniqueId) {
-        throw new NotImplementedException("");
+    public void save(UnclosedShopCommand unclosedShopCommand) {
+        unclosedShopCommands.put(unclosedShopCommand.getPlayerUniqueId(), unclosedShopCommand);
+    }
+
+    @Override
+    public Optional<UnclosedShopCommand> retrieveByPlayer(UUID playerUniqueId)
+    {
+        return Optional.ofNullable(unclosedShopCommands.get(playerUniqueId));
     }
 
     @Override
     public void clearByPlayer(UUID playerUniqueId) {
-        throw new NotImplementedException("");
+        unclosedShopCommands.remove(playerUniqueId);
     }
 }
