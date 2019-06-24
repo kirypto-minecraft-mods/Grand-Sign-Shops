@@ -33,6 +33,12 @@ public final class GrandSignShops {
     @Mod.Instance(GrandSignShops.MOD_ID)
     public static GrandSignShops instance;
 
+    private final UnclosedCommandRepository unclosedCommandRepository;
+
+    public GrandSignShops() {
+        unclosedCommandRepository = new InMemoryUnclosedCommandRepository();
+    }
+
     @EventHandler
     public void onServerStart(FMLServerStartingEvent event) {
         MinecraftServer server = event.getServer();
@@ -45,15 +51,16 @@ public final class GrandSignShops {
                 .map(worldSaveFolder -> new File(worldSaveFolder, "GrandSignShops"))
                 .ifPresent(grandSignShopsRootFolder -> {
                     GrandSignShopRepository grandSignShopRepository = new JsonGrandSignShopRepository(grandSignShopsRootFolder);
-                    UnclosedCommandRepository unclosedCommandRepository = new InMemoryUnclosedCommandRepository();
 
                     manager.registerCommand(new MainCommandHandler(unclosedCommandRepository));
                 });
+        System.out.println("@@@@@@@@@@@@@@@@@@@@ On Server Start");
     }
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        MinecraftForge.EVENT_BUS.register(new ForgeEventHandlers());
+        System.out.println("@@@@@@@@@@@@@@@@@@@@ Pre Init");
+        MinecraftForge.EVENT_BUS.register(new ForgeEventHandlers(unclosedCommandRepository));
     }
 
     private Optional<File> getWorldSaveFolder(MinecraftServer server) {
