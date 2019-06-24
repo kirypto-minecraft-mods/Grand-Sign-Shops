@@ -6,11 +6,16 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
+import kirypto.grandsignshops.UnclosedCommandParam;
+import kirypto.grandsignshops.UnclosedShopCommand;
+import kirypto.grandsignshops.UnclosedShopCommandType;
 import mcp.MethodsReturnNonnullByDefault;
 
 import static java.lang.String.format;
@@ -78,6 +83,14 @@ public class CreateShopCommandHandler implements GShopsSubCommandHandler {
             throw new WrongUsageException("Error: Sell price (high) cannot be less than buy price (low)");
         }
 
+        Map<UnclosedCommandParam, Object> commandParameters = new LinkedHashMap<>();
+        commandParameters.put(UnclosedCommandParam.ITEM, item);
+        commandParameters.put(UnclosedCommandParam.META, meta);
+        commandParameters.put(UnclosedCommandParam.BUY_HIGH, buyPriceHigh);
+        commandParameters.put(UnclosedCommandParam.BUY_LOW, buyPriceLow);
+        commandParameters.put(UnclosedCommandParam.SELL_HIGH, sellPriceHigh);
+        commandParameters.put(UnclosedCommandParam.SELL_LOW, sellPriceLow);
+        unclosedCommandRepository.save(UnclosedShopCommand.of(UnclosedShopCommandType.CREATE, player.getUniqueID(), commandParameters));
         sendPlayerMessage(player, format("Success: %s %s:%s %s:%s", item, buyPriceHigh, buyPriceLow, sellPriceHigh, sellPriceLow));
     }
 }
