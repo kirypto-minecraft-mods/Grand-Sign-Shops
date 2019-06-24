@@ -26,4 +26,20 @@ public class UnclosedShopCommand {
             Map<UnclosedCommandParam, Object> params) {
         return new UnclosedShopCommand(unclosedShopCommandType, playerUniqueId, params);
     }
+
+    public UnclosedShopCommandType getUnclosedShopCommandType() {
+        return unclosedShopCommandType;
+    }
+
+    public UUID getPlayerUniqueId() {
+        return playerUniqueId;
+    }
+
+    public Instant getCreationTime() {
+        return creationTime;
+    }
+
+    public Map<UnclosedCommandParam, Object> getParams() {
+        return params;
+    }
 }
