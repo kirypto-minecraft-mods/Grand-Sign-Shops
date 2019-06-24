@@ -26,15 +26,15 @@ public class SignEventHandler {
                 .map(iTextComp -> format("[%s, %s]", iTextComp.getFormattedText(), iTextComp.getUnformattedComponentText()))
                 .collect(Collectors.joining());
 
-        if (fullSignText.contains("password")) {
-            int earnings = 42;
-            sendPlayerMessage(player, format("You just %s clicked on a sign with the pass phrase, earning %s!", clickType, earnings));
-            GrandEconomyApi.addToBalance(player.getUniqueID(), earnings, true);
-
-            tileEntitySign.signText[0] = new TextComponentString("Test");
-
-        } else {
+        if (!fullSignText.contains("password")) {
             sendPlayerMessage(player, format("The sign did not have the pass phrase... It just said '%s'", fullSignText));
+            return;
         }
+
+        int earnings = 42;
+        sendPlayerMessage(player, format("You just %s clicked on a sign with the pass phrase, earning %s!", clickType, earnings));
+        GrandEconomyApi.addToBalance(player.getUniqueID(), earnings, true);
+
+        tileEntitySign.signText[0] = new TextComponentString("Test");
     }
 }
