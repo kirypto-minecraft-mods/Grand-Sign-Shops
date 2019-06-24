@@ -39,7 +39,7 @@ public class CreateShopCommandHandler implements GShopsSubCommandHandler {
 
     @Override
     public String getSubCommandUsage() {
-        return "<item> <meta> <buy_high> <buy_low> <sell_high> <sell_low>";
+        return "<item> <meta> <sell_high> <sell_low> <buy_high> <buy_low>";
     }
 
     @Override
@@ -58,10 +58,10 @@ public class CreateShopCommandHandler implements GShopsSubCommandHandler {
 
         ResourceLocation item = new ResourceLocation(commandArgs.get(0));
         int meta = parseInt(commandArgs.get(1));
-        int buyPriceHigh = parseInt(commandArgs.get(2));
-        int buyPriceLow = parseInt(commandArgs.get(3));
-        int sellPriceHigh = parseInt(commandArgs.get(4));
-        int sellPriceLow = parseInt(commandArgs.get(5));
+        int sellPriceHigh = parseInt(commandArgs.get(2));
+        int sellPriceLow = parseInt(commandArgs.get(3));
+        int buyPriceHigh = parseInt(commandArgs.get(4));
+        int buyPriceLow = parseInt(commandArgs.get(5));
 
         boolean isValidRequest = ForgeRegistries.BLOCKS.containsKey(item) || ForgeRegistries.ITEMS.containsKey(item);
         if (!isValidRequest) {
