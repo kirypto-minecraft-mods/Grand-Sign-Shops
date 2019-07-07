@@ -29,20 +29,17 @@ public class SignEventHandler {
                 .map(iTextComp -> format("[%s, %s]", iTextComp.getFormattedText(), iTextComp.getUnformattedComponentText()))
                 .collect(Collectors.joining());
 
-        if (!fullSignText.contains("password")) {
-            sendPlayerMessage(player, format("The sign did not have the pass phrase... It just said '%s'", fullSignText));
-            return;
+        if (fullSignText.contains("password")) {
+            int earnings = 42;
+            sendPlayerMessage(player, format("You just %s clicked on a sign with the pass phrase, earning %s!", signInteractionType, earnings));
+            GrandEconomyApi.addToBalance(player.getUniqueID(), earnings, true);
         }
 
-        int earnings = 42;
-        sendPlayerMessage(player, format("You just %s clicked on a sign with the pass phrase, earning %s!", signInteractionType, earnings));
-        GrandEconomyApi.addToBalance(player.getUniqueID(), earnings, true);
-
-        tileEntitySign.signText[0] = new TextComponentString("Test");
+        tileEntitySign.signText[0] = new TextComponentString("## Modified ##");
 
         unclosedCommandRepository.retrieveByPlayer(player.getUniqueID()).ifPresent(unclosedShopCommand -> {
-            Duration timeSinceCration = Duration.between(unclosedShopCommand.getCreationTime(), Instant.now());
-            sendPlayerMessage(player, format("Found matching command, created %s ago.", timeSinceCration));
+            Duration timeSinceCreation = Duration.between(unclosedShopCommand.getCreationTime(), Instant.now());
+            sendPlayerMessage(player, format("Found matching command, created %s ago.", timeSinceCreation));
         });
     }
 }
