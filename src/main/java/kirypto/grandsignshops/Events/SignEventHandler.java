@@ -2,6 +2,7 @@ package kirypto.grandsignshops.Events;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntitySign;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 
 import java.time.Duration;
@@ -26,7 +27,7 @@ public class SignEventHandler {
 
     public void handleSignClick(EntityPlayer player, TileEntitySign tileEntitySign, PlayerSignInteractionType signInteractionType) {
         String fullSignText = Arrays.stream(tileEntitySign.signText)
-                .map(iTextComp -> format("[%s, %s]", iTextComp.getFormattedText(), iTextComp.getUnformattedComponentText()))
+                .map(ITextComponent::getFormattedText)
                 .collect(Collectors.joining());
 
         if (fullSignText.contains("password")) {
