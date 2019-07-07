@@ -18,6 +18,7 @@ import static java.lang.String.format;
 import static kirypto.grandsignshops.Utilities.sendPlayerMessage;
 
 public class SignEventHandler {
+    private static final int UNCLOSED_COMMAND_MAXIMUM_DURATION = 2;
 
     private final UnclosedCommandRepository unclosedCommandRepository;
 
@@ -39,8 +40,19 @@ public class SignEventHandler {
         tileEntitySign.signText[0] = new TextComponentString("## Modified ##");
 
         unclosedCommandRepository.retrieveByPlayer(player.getUniqueID()).ifPresent(unclosedShopCommand -> {
-            Duration timeSinceCreation = Duration.between(unclosedShopCommand.getCreationTime(), Instant.now());
-            sendPlayerMessage(player, format("Found matching command, created %s ago.", timeSinceCreation));
+            Duration durationSinceCreation = Duration.between(unclosedShopCommand.getCreationTime(), Instant.now());
+            long minutesSinceCreation = durationSinceCreation.toMinutes();
+
+            if (minutesSinceCreation >= UNCLOSED_COMMAND_MAXIMUM_DURATION) {
+                sendPlayerMessage(player, format("{\"text\":\"Unclosed command found, but was created %s minutes ago, which is longer than " +
+                                                         "max allowed time (%s). Disregarding...\",\"color\":\"red\"}",
+                                                 minutesSinceCreation,
+                                                 UNCLOSED_COMMAND_MAXIMUM_DURATION));
+                unclosedCommandRepository.clearByPlayer(player.getUniqueID());
+                return;
+            }
+
+            sendPlayerMessage(player, format("Found matching command, created %s seconds ago.", durationSinceCreation.getSeconds()));
         });
     }
 }
