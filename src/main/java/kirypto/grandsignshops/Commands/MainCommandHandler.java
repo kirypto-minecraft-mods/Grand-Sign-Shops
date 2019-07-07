@@ -43,7 +43,7 @@ public class MainCommandHandler extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return format("/%s <sub-command> [parameters]\n    Available sub-commands: %s",
+        return format("/%s <sub-command> [parameters]\n    Available sub-commands: help, %s",
                       GRAND_SIGH_SHOPS_ROOT_COMMAND,
                       String.join(", ", subCommandHandlers.keySet())
         );
