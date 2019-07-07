@@ -9,6 +9,7 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import kirypto.grandsignshops.PlayerSignInteractionType;
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 import the_fireplace.grandeconomy.api.GrandEconomyApi;
 
@@ -23,7 +24,7 @@ public class SignEventHandler {
         this.unclosedCommandRepository = unclosedCommandRepository;
     }
 
-    public void handleSignClick(EntityPlayer player, TileEntitySign tileEntitySign, String clickType) {
+    public void handleSignClick(EntityPlayer player, TileEntitySign tileEntitySign, PlayerSignInteractionType signInteractionType) {
         String fullSignText = Arrays.stream(tileEntitySign.signText)
                 .map(iTextComp -> format("[%s, %s]", iTextComp.getFormattedText(), iTextComp.getUnformattedComponentText()))
                 .collect(Collectors.joining());
@@ -34,7 +35,7 @@ public class SignEventHandler {
         }
 
         int earnings = 42;
-        sendPlayerMessage(player, format("You just %s clicked on a sign with the pass phrase, earning %s!", clickType, earnings));
+        sendPlayerMessage(player, format("You just %s clicked on a sign with the pass phrase, earning %s!", signInteractionType, earnings));
         GrandEconomyApi.addToBalance(player.getUniqueID(), earnings, true);
 
         tileEntitySign.signText[0] = new TextComponentString("Test");

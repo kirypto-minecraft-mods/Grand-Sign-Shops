@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import kirypto.grandsignshops.PlayerSignInteractionType;
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 
 import static kirypto.grandsignshops.Utilities.sendPlayerMessage;
@@ -23,7 +24,12 @@ public class ForgeEventHandlers {
 
     @SubscribeEvent
     public void onPlayerInteractEvent(PlayerInteractEvent event) {
-        if (!(event instanceof PlayerInteractEvent.LeftClickBlock) && !(event instanceof PlayerInteractEvent.RightClickBlock)) {
+        PlayerSignInteractionType interactionType;
+        if ((event instanceof PlayerInteractEvent.LeftClickBlock)) {
+            interactionType = PlayerSignInteractionType.LEFT_CLICK;
+        } else if ((event instanceof PlayerInteractEvent.RightClickBlock)) {
+            interactionType = PlayerSignInteractionType.RIGHT_CLICK;
+        } else {
             return;
         }
 
@@ -31,8 +37,6 @@ public class ForgeEventHandlers {
         World world = event.getWorld();
         BlockPos pos = event.getPos();
         Block block = world.getBlockState(pos).getBlock();
-        String clickType = (event instanceof PlayerInteractEvent.LeftClickBlock) ? "left" : "right";
-
 
         if (!(block instanceof BlockSign)) {
             sendPlayerMessage(player, "Not a sign block.");
@@ -47,6 +51,6 @@ public class ForgeEventHandlers {
 
         TileEntitySign tileEntitySign = (TileEntitySign) tileEntity;
 
-        signEventHandler.handleSignClick(player, tileEntitySign, clickType);
+        signEventHandler.handleSignClick(player, tileEntitySign, interactionType);
     }
 }
