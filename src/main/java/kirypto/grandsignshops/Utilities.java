@@ -2,12 +2,13 @@ package kirypto.grandsignshops;
 
 import net.minecraft.command.NumberInvalidException;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 
 public class Utilities {
 
     public static void sendPlayerMessage(EntityPlayer player, TextFormatStyle formatStyle, String message) {
-        TextComponentString textComponent = new TextComponentString(message);
+        ITextComponent textComponent = text(message);
         textComponent.setStyle(formatStyle.getStyle());
         player.sendMessage(textComponent);
 
@@ -23,5 +24,9 @@ public class Utilities {
         } catch (NumberFormatException var2) {
             throw new NumberInvalidException("commands.generic.num.invalid", input);
         }
+    }
+
+    public static ITextComponent text(String text) {
+        return new TextComponentString(text);
     }
 }
