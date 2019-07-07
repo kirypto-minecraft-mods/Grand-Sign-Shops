@@ -2,18 +2,13 @@ package kirypto.grandsignshops.Events;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import kirypto.grandsignshops.PlayerSignInteractionType;
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 import kirypto.grandsignshops.TextFormatStyle;
-import the_fireplace.grandeconomy.api.GrandEconomyApi;
 
 import static java.lang.String.format;
 import static kirypto.grandsignshops.Utilities.sendPlayerMessage;
@@ -28,28 +23,16 @@ public class SignEventHandler {
     }
 
     public void handleSignClick(EntityPlayer player, TileEntitySign tileEntitySign, PlayerSignInteractionType signInteractionType) {
-        String fullSignText = Arrays.stream(tileEntitySign.signText)
-                .map(ITextComponent::getFormattedText)
-                .collect(Collectors.joining());
-
-        if (fullSignText.contains("password")) {
-            int earnings = 42;
-            sendPlayerMessage(player, format("You just %s clicked on a sign with the pass phrase, earning %s!", signInteractionType, earnings));
-            GrandEconomyApi.addToBalance(player.getUniqueID(), earnings, true);
-        }
-
-        tileEntitySign.signText[0] = new TextComponentString("## Modified ##");
 
         unclosedCommandRepository.retrieveByPlayer(player.getUniqueID()).ifPresent(unclosedShopCommand -> {
             Duration durationSinceCreation = Duration.between(unclosedShopCommand.getCreationTime(), Instant.now());
             long minutesSinceCreation = durationSinceCreation.toMinutes();
 
             if (minutesSinceCreation >= UNCLOSED_COMMAND_MAXIMUM_DURATION) {
-                String message = format(
+                sendPlayerMessage(player, TextFormatStyle.RED, format(
                         "Unclosed command found, but was created %s minutes ago, which is longer than max allowed time (%s). Disregarding...",
                         minutesSinceCreation,
-                        UNCLOSED_COMMAND_MAXIMUM_DURATION);
-                sendPlayerMessage(player, TextFormatStyle.RED, message);
+                        UNCLOSED_COMMAND_MAXIMUM_DURATION));
 
                 unclosedCommandRepository.clearByPlayer(player.getUniqueID());
                 return;
