@@ -5,10 +5,12 @@ import net.minecraft.tileentity.TileEntitySign;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Optional;
 
 import kirypto.grandsignshops.PlayerSignInteractionType;
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 import kirypto.grandsignshops.TextFormatStyle;
+import kirypto.grandsignshops.UnclosedShopCommand;
 
 import static java.lang.String.format;
 import static kirypto.grandsignshops.Utilities.sendPlayerMessage;
@@ -23,22 +25,27 @@ public class SignEventHandler {
     }
 
     public void handleSignClick(EntityPlayer player, TileEntitySign tileEntitySign, PlayerSignInteractionType signInteractionType) {
+        Optional<UnclosedShopCommand> unclosedShopCommandOptional = unclosedCommandRepository.retrieveByPlayer(player.getUniqueID());
+        if (unclosedShopCommandOptional.isPresent()) {
+            UnclosedShopCommand unclosedShopCommand = unclosedShopCommandOptional.get();
+            handleInteractionWithUnclosedShopCommand(player, unclosedShopCommand);
+        }
+    }
 
-        unclosedCommandRepository.retrieveByPlayer(player.getUniqueID()).ifPresent(unclosedShopCommand -> {
-            Duration durationSinceCreation = Duration.between(unclosedShopCommand.getCreationTime(), Instant.now());
-            long minutesSinceCreation = durationSinceCreation.toMinutes();
+    private void handleInteractionWithUnclosedShopCommand(EntityPlayer player, UnclosedShopCommand unclosedShopCommand) {
+        Duration durationSinceCreation = Duration.between(unclosedShopCommand.getCreationTime(), Instant.now());
+        long minutesSinceCreation = durationSinceCreation.toMinutes();
 
-            if (minutesSinceCreation >= UNCLOSED_COMMAND_MAXIMUM_DURATION) {
-                sendPlayerMessage(player, TextFormatStyle.RED, format(
-                        "Unclosed command found, but was created %s minutes ago, which is longer than max allowed time (%s). Disregarding...",
-                        minutesSinceCreation,
-                        UNCLOSED_COMMAND_MAXIMUM_DURATION));
+        if (minutesSinceCreation >= UNCLOSED_COMMAND_MAXIMUM_DURATION) {
+            sendPlayerMessage(player, TextFormatStyle.RED, format(
+                    "Unclosed command found, but was created %s minutes ago, which is longer than max allowed time (%s). Disregarding...",
+                    minutesSinceCreation,
+                    UNCLOSED_COMMAND_MAXIMUM_DURATION));
 
-                unclosedCommandRepository.clearByPlayer(player.getUniqueID());
-                return;
-            }
+            unclosedCommandRepository.clearByPlayer(player.getUniqueID());
+            return;
+        }
 
-            sendPlayerMessage(player, format("Found matching command, created %s seconds ago.", durationSinceCreation.getSeconds()));
-        });
+        sendPlayerMessage(player, format("Found matching command, created %s seconds ago.", durationSinceCreation.getSeconds()));
     }
 }
