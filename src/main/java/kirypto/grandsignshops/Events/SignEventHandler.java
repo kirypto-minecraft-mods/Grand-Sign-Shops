@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import kirypto.grandsignshops.PlayerSignInteractionType;
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
+import kirypto.grandsignshops.TextFormatStyle;
 import the_fireplace.grandeconomy.api.GrandEconomyApi;
 
 import static java.lang.String.format;
@@ -44,10 +45,12 @@ public class SignEventHandler {
             long minutesSinceCreation = durationSinceCreation.toMinutes();
 
             if (minutesSinceCreation >= UNCLOSED_COMMAND_MAXIMUM_DURATION) {
-                sendPlayerMessage(player, format("{\"text\":\"Unclosed command found, but was created %s minutes ago, which is longer than " +
-                                                         "max allowed time (%s). Disregarding...\",\"color\":\"red\"}",
-                                                 minutesSinceCreation,
-                                                 UNCLOSED_COMMAND_MAXIMUM_DURATION));
+                String message = format(
+                        "Unclosed command found, but was created %s minutes ago, which is longer than max allowed time (%s). Disregarding...",
+                        minutesSinceCreation,
+                        UNCLOSED_COMMAND_MAXIMUM_DURATION);
+                sendPlayerMessage(player, TextFormatStyle.RED, message);
+
                 unclosedCommandRepository.clearByPlayer(player.getUniqueID());
                 return;
             }

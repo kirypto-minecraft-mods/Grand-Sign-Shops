@@ -5,8 +5,16 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextComponentString;
 
 public class Utilities {
+
+    public static void sendPlayerMessage(EntityPlayer player, TextFormatStyle formatStyle, String message) {
+        TextComponentString textComponent = new TextComponentString(message);
+        textComponent.setStyle(formatStyle.getStyle());
+        player.sendMessage(textComponent);
+
+    }
+
     public static void sendPlayerMessage(EntityPlayer player, String message) {
-        player.sendMessage(new TextComponentString(message));
+        sendPlayerMessage(player, TextFormatStyle.NORMAL, message);
     }
 
     public static int parseInt(String input) throws NumberInvalidException {
