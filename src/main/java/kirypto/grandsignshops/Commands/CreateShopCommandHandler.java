@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
@@ -39,7 +40,7 @@ public class CreateShopCommandHandler implements GShopsSubCommandHandler {
 
     @Override
     public String getSubCommandUsage() {
-        return "<item> <meta> <sell_high> <sell_low> <buy_high> <buy_low>";
+        return "<item>[@meta] <sell_high> <sell_low> <buy_high> <buy_low>";
     }
 
     @Override
@@ -52,22 +53,24 @@ public class CreateShopCommandHandler implements GShopsSubCommandHandler {
 
     @Override
     public void executeSubCommand(EntityPlayerMP player, List<String> commandArgs) throws CommandException {
-        if (commandArgs.size() != 6) {
+        if (commandArgs.size() != 5) {
             throw new WrongUsageException(format("%s command requires: %s", getSubCommandName(), getSubCommandUsage()));
         }
 
-        ResourceLocation item = new ResourceLocation(commandArgs.get(0));
-        int meta = parseInt(commandArgs.get(1));
-        int sellPriceHigh = parseInt(commandArgs.get(2));
-        int sellPriceLow = parseInt(commandArgs.get(3));
-        int buyPriceHigh = parseInt(commandArgs.get(4));
-        int buyPriceLow = parseInt(commandArgs.get(5));
+        String[] itemAndOptionalMeta = commandArgs.get(0).split("@");
+
+        ResourceLocation item = new ResourceLocation(itemAndOptionalMeta[0]);
+        Optional<Integer> metaOptional = (itemAndOptionalMeta.length > 1 ? Optional.of(parseInt(itemAndOptionalMeta[1])) : Optional.empty());
+        int sellPriceHigh = parseInt(commandArgs.get(1));
+        int sellPriceLow = parseInt(commandArgs.get(2));
+        int buyPriceHigh = parseInt(commandArgs.get(3));
+        int buyPriceLow = parseInt(commandArgs.get(4));
 
         boolean isValidRequest = ForgeRegistries.BLOCKS.containsKey(item) || ForgeRegistries.ITEMS.containsKey(item);
         if (!isValidRequest) {
             throw new WrongUsageException("Error: Item not found");
         }
-        if (meta < 0) {
+        if (metaOptional.isPresent() && metaOptional.get() < 0) {
             throw new WrongUsageException("Error: Invalid meta");
         }
         if (buyPriceLow <= 0) {
@@ -85,7 +88,7 @@ public class CreateShopCommandHandler implements GShopsSubCommandHandler {
 
         Map<UnclosedCommandParam, Object> commandParameters = new LinkedHashMap<>();
         commandParameters.put(UnclosedCommandParam.ITEM, item);
-        commandParameters.put(UnclosedCommandParam.META, meta);
+        commandParameters.put(UnclosedCommandParam.META, metaOptional.orElse(null));
         commandParameters.put(UnclosedCommandParam.BUY_HIGH, buyPriceHigh);
         commandParameters.put(UnclosedCommandParam.BUY_LOW, buyPriceLow);
         commandParameters.put(UnclosedCommandParam.SELL_HIGH, sellPriceHigh);
