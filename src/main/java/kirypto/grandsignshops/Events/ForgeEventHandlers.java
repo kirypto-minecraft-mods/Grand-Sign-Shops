@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import kirypto.grandsignshops.PlayerSignInteractionType;
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
+import kirypto.grandsignshops.TextFormatStyle;
 
 import static kirypto.grandsignshops.Utilities.sendPlayerMessage;
 
@@ -39,13 +40,13 @@ public class ForgeEventHandlers {
         Block block = world.getBlockState(pos).getBlock();
 
         if (!(block instanceof BlockSign)) {
-            sendPlayerMessage(player, "Not a sign block.");
+            sendPlayerMessage(player, TextFormatStyle.TEST, "Not a sign block.");
             return;
         }
 
         TileEntity tileEntity = world.getTileEntity(pos);
         if (!(tileEntity instanceof TileEntitySign)) {
-            sendPlayerMessage(player, "Not a sign entity.");
+            sendPlayerMessage(player, TextFormatStyle.TEST, "Not a sign entity.");
             return;
         }
 
