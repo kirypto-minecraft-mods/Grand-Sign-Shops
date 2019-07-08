@@ -5,7 +5,10 @@ import net.minecraft.util.text.TextFormatting;
 
 public enum TextFormatStyle {
     NORMAL(new Style()),
-    RED(makeRedStyle());
+    ERROR(makeErrorStyle()),
+    SUCCESS(makeSuccessStyle()),
+    TEST(makeTestStyle())
+    ;
 
 
     private final Style style;
@@ -18,9 +21,23 @@ public enum TextFormatStyle {
         return style;
     }
 
-    private static Style makeRedStyle() {
+    private static Style makeErrorStyle() {
         Style style = new Style();
         style.setColor(TextFormatting.RED);
+        return style;
+    }
+
+    private static Style makeSuccessStyle() {
+        Style style = new Style();
+        style.setColor(TextFormatting.GREEN);
+        return style;
+    }
+
+    private static Style makeTestStyle() {
+        Style style = new Style();
+        style.setColor(TextFormatting.LIGHT_PURPLE);
+        style.setStrikethrough(true);
+        style.setItalic(true);
         return style;
     }
 }

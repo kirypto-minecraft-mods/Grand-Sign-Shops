@@ -44,7 +44,7 @@ public class SignEventHandler {
         long minutesSinceCreation = durationSinceCreation.toMinutes();
 
         if (minutesSinceCreation >= UNCLOSED_COMMAND_MAXIMUM_DURATION) {
-            sendPlayerMessage(player, TextFormatStyle.RED, format(
+            sendPlayerMessage(player, TextFormatStyle.ERROR, format(
                     "Unclosed command found, but was created %s minutes ago, which is longer than max allowed time (%s). Disregarding...",
                     minutesSinceCreation,
                     UNCLOSED_COMMAND_MAXIMUM_DURATION));
@@ -60,7 +60,7 @@ public class SignEventHandler {
                 handleSignInteractionWithUnclosedCreateCommand(player, unclosedShopCommand, tileEntitySign, signInteractionType);
                 break;
             default:
-                sendPlayerMessage(player, TextFormatStyle.RED, format(
+                sendPlayerMessage(player, TextFormatStyle.ERROR, format(
                         "Unhandled UnclosedShopCommandType '%s'! Please report this to the mod author.",
                         unclosedShopCommand.getUnclosedShopCommandType()));
         }
