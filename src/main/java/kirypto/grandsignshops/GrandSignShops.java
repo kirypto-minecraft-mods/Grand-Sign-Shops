@@ -9,7 +9,6 @@ import net.minecraft.world.storage.SaveHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 import java.io.File;
@@ -21,7 +20,6 @@ import kirypto.grandsignshops.Repository.GrandSignShopRepository;
 import kirypto.grandsignshops.Repository.InMemoryUnclosedCommandRepository;
 import kirypto.grandsignshops.Repository.JsonGrandSignShopRepository;
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
-import the_fireplace.grandeconomy.economy.Account;
 
 @Mod(modid = GrandSignShops.MOD_ID, name = GrandSignShops.MODNAME, version = GrandSignShops.VERSION,
         acceptedMinecraftVersions = "1.12.2", acceptableRemoteVersions = "*")
@@ -33,34 +31,22 @@ public final class GrandSignShops {
     @Mod.Instance(GrandSignShops.MOD_ID)
     public static GrandSignShops instance;
 
-    private final UnclosedCommandRepository unclosedCommandRepository;
-
-    public GrandSignShops() {
-        unclosedCommandRepository = new InMemoryUnclosedCommandRepository();
-    }
-
     @EventHandler
     public void onServerStart(FMLServerStartingEvent event) {
+        System.out.println("@@@@@@@@@@@@@@@@@@@@ On Server Start");
         MinecraftServer server = event.getServer();
         ICommandManager command = server.getCommandManager();
         ServerCommandManager manager = (ServerCommandManager) command;
-
-        Account.clear();
 
         getWorldSaveFolder(server)
                 .map(worldSaveFolder -> new File(worldSaveFolder, "GrandSignShops"))
                 .ifPresent(grandSignShopsRootFolder -> {
                     GrandSignShopRepository grandSignShopRepository = new JsonGrandSignShopRepository(grandSignShopsRootFolder);
+                    UnclosedCommandRepository unclosedCommandRepository = new InMemoryUnclosedCommandRepository();
 
                     manager.registerCommand(new MainCommandHandler(unclosedCommandRepository));
+                    MinecraftForge.EVENT_BUS.register(new ForgeEventHandlers(unclosedCommandRepository));
                 });
-        System.out.println("@@@@@@@@@@@@@@@@@@@@ On Server Start");
-    }
-
-    @EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
-        System.out.println("@@@@@@@@@@@@@@@@@@@@ Pre Init");
-        MinecraftForge.EVENT_BUS.register(new ForgeEventHandlers(unclosedCommandRepository));
     }
 
     private Optional<File> getWorldSaveFolder(MinecraftServer server) {
