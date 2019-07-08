@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import kirypto.grandsignshops.PlayerSignInteractionType;
+import kirypto.grandsignshops.Repository.GrandSignShopRepository;
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 import kirypto.grandsignshops.TextFormatStyle;
 import kirypto.grandsignshops.UnclosedCommandParam;
@@ -23,9 +24,13 @@ public class SignEventHandler {
     private static final int UNCLOSED_COMMAND_MAXIMUM_DURATION = 2;
 
     private final UnclosedCommandRepository unclosedCommandRepository;
+    private final GrandSignShopRepository grandSignShopRepository;
 
-    public SignEventHandler(UnclosedCommandRepository unclosedCommandRepository) {
+    public SignEventHandler(
+            UnclosedCommandRepository unclosedCommandRepository,
+            GrandSignShopRepository grandSignShopRepository) {
         this.unclosedCommandRepository = unclosedCommandRepository;
+        this.grandSignShopRepository = grandSignShopRepository;
     }
 
     public void handleSignClick(EntityPlayer player, TileEntitySign tileEntitySign, PlayerSignInteractionType signInteractionType) {

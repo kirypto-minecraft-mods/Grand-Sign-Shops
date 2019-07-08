@@ -11,6 +11,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import kirypto.grandsignshops.PlayerSignInteractionType;
+import kirypto.grandsignshops.Repository.GrandSignShopRepository;
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 import kirypto.grandsignshops.TextFormatStyle;
 
@@ -19,8 +20,10 @@ import static kirypto.grandsignshops.Utilities.sendPlayerMessage;
 public class ForgeEventHandlers {
     private final SignEventHandler signEventHandler;
 
-    public ForgeEventHandlers(UnclosedCommandRepository unclosedCommandRepository) {
-        signEventHandler = new SignEventHandler(unclosedCommandRepository);
+    public ForgeEventHandlers(
+            UnclosedCommandRepository unclosedCommandRepository,
+            GrandSignShopRepository grandSignShopRepository) {
+        this.signEventHandler = new SignEventHandler(unclosedCommandRepository, grandSignShopRepository);
     }
 
     @SubscribeEvent

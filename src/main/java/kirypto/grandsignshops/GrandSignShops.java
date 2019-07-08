@@ -45,7 +45,7 @@ public final class GrandSignShops {
                     UnclosedCommandRepository unclosedCommandRepository = new InMemoryUnclosedCommandRepository();
 
                     manager.registerCommand(new MainCommandHandler(unclosedCommandRepository));
-                    MinecraftForge.EVENT_BUS.register(new ForgeEventHandlers(unclosedCommandRepository));
+                    MinecraftForge.EVENT_BUS.register(new ForgeEventHandlers(unclosedCommandRepository, grandSignShopRepository));
                 });
     }
 
