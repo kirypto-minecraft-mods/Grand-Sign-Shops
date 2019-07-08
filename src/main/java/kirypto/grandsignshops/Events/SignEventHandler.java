@@ -81,9 +81,9 @@ public class SignEventHandler {
         int sellPriceHigh = (int) commandParams.get(UnclosedCommandParam.SELL_HIGH);
         int sellPriceLow = (int) commandParams.get(UnclosedCommandParam.SELL_LOW);
 
-        tileEntitySign.signText[0] = text("   /^\\");
-        tileEntitySign.signText[1] = text("  /___\\");
-        tileEntitySign.signText[2] = text(" /(-_-)\\");
+        tileEntitySign.signText[0] = text("/^\\");
+        tileEntitySign.signText[1] = text("/___\\");
+        tileEntitySign.signText[2] = text("/(-_-)\\");
         tileEntitySign.signText[3] = text("/_______\\");
 
         sendPlayerMessage(player, format("Successfully (kinda) handled create command! Read params: %s%s %s:%s %s:%s",
