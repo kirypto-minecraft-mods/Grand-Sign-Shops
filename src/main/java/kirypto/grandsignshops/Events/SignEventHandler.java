@@ -86,13 +86,14 @@ public class SignEventHandler {
         tileEntitySign.signText[2] = text("/(-_-)\\");
         tileEntitySign.signText[3] = text("/_______\\");
 
-        sendPlayerMessage(player, format("Successfully (kinda) handled create command! Read params: %s%s %s:%s %s:%s",
-                                         item,
-                                         metaOptional.map(aDouble -> format("@%s", aDouble)).orElse(""),
-                                         buyPriceHigh,
-                                         buyPriceLow,
-                                         sellPriceHigh,
-                                         sellPriceLow));
+        sendPlayerMessage(player, TextFormatStyle.SUCCESS, format(
+                "Successfully (kinda) handled create command! Read params: %s%s %s:%s %s:%s",
+                item,
+                metaOptional.map(aDouble -> format("@%s", aDouble)).orElse(""),
+                buyPriceHigh,
+                buyPriceLow,
+                sellPriceHigh,
+                sellPriceLow));
         unclosedCommandRepository.clearByPlayer(player.getUniqueID());
     }
 }
