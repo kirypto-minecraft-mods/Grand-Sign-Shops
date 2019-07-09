@@ -6,10 +6,10 @@ import net.minecraft.util.text.TextFormatting;
 public enum TextFormatStyle {
     NORMAL(new Style()),
     ERROR(makeErrorStyle()),
+    WARNING(makeWarningStyle()),
     SUCCESS(makeSuccessStyle()),
     TEST(makeTestStyle())
     ;
-
 
     private final Style style;
 
@@ -24,6 +24,12 @@ public enum TextFormatStyle {
     private static Style makeErrorStyle() {
         Style style = new Style();
         style.setColor(TextFormatting.RED);
+        return style;
+    }
+
+    private static Style makeWarningStyle() {
+        Style style = new Style();
+        style.setColor(TextFormatting.YELLOW);
         return style;
     }
 
