@@ -48,7 +48,8 @@ public class SignEventHandler {
     private void handleSignInteractionWithUnclosedShopCommand(
             EntityPlayer player,
             UnclosedShopCommand unclosedShopCommand,
-            TileEntitySign tileEntitySign, PlayerSignInteractionType signInteractionType) {
+            TileEntitySign tileEntitySign,
+            PlayerSignInteractionType signInteractionType) {
         Duration durationSinceCreation = Duration.between(unclosedShopCommand.getCreationTime(), Instant.now());
         long minutesSinceCreation = durationSinceCreation.toMinutes();
 
@@ -66,7 +67,9 @@ public class SignEventHandler {
         //noinspection SwitchStatementWithTooFewBranches
         switch (unclosedShopCommand.getUnclosedShopCommandType()) {
             case CREATE:
-                handleSignInteractionWithUnclosedCreateCommand(player, unclosedShopCommand, tileEntitySign, signInteractionType);
+                if (signInteractionType == PlayerSignInteractionType.RIGHT_CLICK) {
+                    handleSignInteractionWithUnclosedCreateCommand(player, unclosedShopCommand, tileEntitySign);
+                }
                 break;
             default:
                 sendPlayerMessage(player, TextFormatStyle.ERROR, format(
@@ -78,8 +81,7 @@ public class SignEventHandler {
     private void handleSignInteractionWithUnclosedCreateCommand(
             EntityPlayer player,
             UnclosedShopCommand unclosedShopCommand,
-            TileEntitySign tileEntitySign,
-            PlayerSignInteractionType signInteractionType) {
+            TileEntitySign tileEntitySign) {
         if (!(player.getEntityWorld().getBlockState(tileEntitySign.getPos()).getBlock() instanceof BlockWallSign)) {
             sendPlayerMessage(player, TextFormatStyle.TEST, "Not block wall sign.");
             return;
