@@ -14,6 +14,7 @@ import java.util.Optional;
 
 import kirypto.grandsignshops.GrandSignShop;
 import kirypto.grandsignshops.PlayerSignInteractionType;
+import kirypto.grandsignshops.PriceRange;
 import kirypto.grandsignshops.Repository.BlockLocation;
 import kirypto.grandsignshops.Repository.GrandSignShopRepository;
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
@@ -105,6 +106,8 @@ public class SignEventHandler {
 
         String itemName = unclosedCreateShopCommand.getItemName();
         Optional<Integer> metaOptional = unclosedCreateShopCommand.getMetadata();
+        PriceRange buyPrice = unclosedCreateShopCommand.getBuyPrice();
+        PriceRange sellPrice = unclosedCreateShopCommand.getSellPrice();
         int buyPriceHigh = unclosedCreateShopCommand.getBuyPriceHigh();
         int buyPriceLow = unclosedCreateShopCommand.getBuyPriceLow();
         int sellPriceHigh = unclosedCreateShopCommand.getSellPriceHigh();
@@ -125,10 +128,10 @@ public class SignEventHandler {
                 "Successfully (kinda) handled create command! Read params: %s%s %s:%s %s:%s",
                 itemName,
                 metaOptional.map(aDouble -> format("@%s", aDouble)).orElse(""),
-                buyPriceHigh,
-                buyPriceLow,
-                sellPriceHigh,
-                sellPriceLow));
+                buyPrice.getHigh(),
+                buyPrice.getLow(),
+                sellPrice.getHigh(),
+                sellPrice.getLow()));
         unclosedCommandRepository.clearByPlayer(player.getUniqueID());
     }
 }
