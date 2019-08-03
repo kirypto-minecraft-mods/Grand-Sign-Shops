@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-import kirypto.grandsignshops.UnclosedShopCommand;
+import kirypto.grandsignshops.UnclosedShopCommands.UnclosedShopCommand;
 
 public class InMemoryUnclosedCommandRepository implements UnclosedCommandRepository {
 

@@ -16,8 +16,8 @@ import kirypto.grandsignshops.PlayerSignInteractionType;
 import kirypto.grandsignshops.Repository.GrandSignShopRepository;
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 import kirypto.grandsignshops.TextFormatStyle;
-import kirypto.grandsignshops.UnclosedCreateShopCommand;
-import kirypto.grandsignshops.UnclosedShopCommand;
+import kirypto.grandsignshops.UnclosedShopCommands.UnclosedCreateShopCommand;
+import kirypto.grandsignshops.UnclosedShopCommands.UnclosedShopCommand;
 
 import static java.lang.String.format;
 import static kirypto.grandsignshops.Utilities.sendPlayerMessage;

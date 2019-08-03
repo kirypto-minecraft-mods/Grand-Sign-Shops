@@ -10,8 +10,8 @@ import java.util.Optional;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
-import kirypto.grandsignshops.UnclosedCreateShopCommand;
-import kirypto.grandsignshops.UnclosedShopCommandType;
+import kirypto.grandsignshops.UnclosedShopCommands.UnclosedCreateShopCommand;
+import kirypto.grandsignshops.UnclosedShopCommands.UnclosedShopCommandType;
 import kirypto.grandsignshops.Utilities.ForgeRegistryHelper;
 import mcp.MethodsReturnNonnullByDefault;
 

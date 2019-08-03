@@ -1,4 +1,4 @@
-package kirypto.grandsignshops;
+package kirypto.grandsignshops.UnclosedShopCommands;
 
 import java.time.Instant;
 import java.util.UUID;
