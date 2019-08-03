@@ -108,10 +108,6 @@ public class SignEventHandler {
         Optional<Integer> metaOptional = unclosedCreateShopCommand.getMetadata();
         PriceRange buyPrice = unclosedCreateShopCommand.getBuyPrice();
         PriceRange sellPrice = unclosedCreateShopCommand.getSellPrice();
-        int buyPriceHigh = unclosedCreateShopCommand.getBuyPriceHigh();
-        int buyPriceLow = unclosedCreateShopCommand.getBuyPriceLow();
-        int sellPriceHigh = unclosedCreateShopCommand.getSellPriceHigh();
-        int sellPriceLow = unclosedCreateShopCommand.getSellPriceLow();
 
         GrandSignShop grandSignShop = GrandSignShop.of(
                 player.getUniqueID(),

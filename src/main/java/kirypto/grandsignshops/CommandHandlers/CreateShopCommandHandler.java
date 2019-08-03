@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import kirypto.grandsignshops.PriceRange;
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 import kirypto.grandsignshops.UnclosedShopCommands.UnclosedCreateShopCommand;
 import kirypto.grandsignshops.UnclosedShopCommands.UnclosedShopCommandType;
@@ -86,10 +87,8 @@ public class CreateShopCommandHandler implements GShopsSubCommandHandler {
                 player.getUniqueID(),
                 itemName,
                 metaOptional.orElse(null),
-                buyPriceHigh,
-                buyPriceLow,
-                sellPriceHigh,
-                sellPriceLow
+                PriceRange.of(buyPriceLow, buyPriceHigh),
+                PriceRange.of(sellPriceLow, sellPriceHigh)
         ));
         sendPlayerMessage(player, format("Success: %s %s:%s %s:%s", itemName, buyPriceHigh, buyPriceLow, sellPriceHigh, sellPriceLow));
     }

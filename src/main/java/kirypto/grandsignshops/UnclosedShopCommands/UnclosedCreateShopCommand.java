@@ -10,29 +10,19 @@ public class UnclosedCreateShopCommand extends UnclosedShopCommand {
     private final Integer metadataOrNull;
     private final PriceRange buyPrice;
     private final PriceRange sellPrice;
-    private final int buyPriceHigh;
-    private final int buyPriceLow;
-    private final int sellPriceHigh;
-    private final int sellPriceLow;
 
     private UnclosedCreateShopCommand(
             UnclosedShopCommandType unclosedShopCommandType,
             UUID playerUniqueId,
             String itemName,
             Integer metadataOrNull,
-            int buyPriceHigh,
-            int buyPriceLow,
-            int sellPriceHigh,
-            int sellPriceLow) {
+            PriceRange buyPrice,
+            PriceRange sellPrice) {
         super(unclosedShopCommandType, playerUniqueId);
         this.itemName = itemName;
         this.metadataOrNull = metadataOrNull;
-        this.buyPrice = PriceRange.of(buyPriceLow, buyPriceHigh);
-        this.sellPrice = PriceRange.of(sellPriceLow, sellPriceHigh);
-        this.buyPriceHigh = buyPriceHigh;
-        this.buyPriceLow = buyPriceLow;
-        this.sellPriceHigh = sellPriceHigh;
-        this.sellPriceLow = sellPriceLow;
+        this.buyPrice = buyPrice;
+        this.sellPrice = sellPrice;
     }
 
     public static UnclosedCreateShopCommand of(
@@ -40,19 +30,15 @@ public class UnclosedCreateShopCommand extends UnclosedShopCommand {
             UUID playerUniqueId,
             String itemName,
             Integer metadataOrNull,
-            int buyPriceHigh,
-            int buyPriceLow,
-            int sellPriceHigh,
-            int sellPriceLow) {
+            PriceRange buyPrice,
+            PriceRange sellPrice) {
         return new UnclosedCreateShopCommand(
                 unclosedShopCommandType,
                 playerUniqueId,
                 itemName,
                 metadataOrNull,
-                buyPriceHigh,
-                buyPriceLow,
-                sellPriceHigh,
-                sellPriceLow);
+                buyPrice,
+                sellPrice);
     }
 
     public String getItemName() {
@@ -61,22 +47,6 @@ public class UnclosedCreateShopCommand extends UnclosedShopCommand {
 
     public Optional<Integer> getMetadata() {
         return Optional.ofNullable(metadataOrNull);
-    }
-
-    public int getBuyPriceHigh() {
-        return buyPriceHigh;
-    }
-
-    public int getBuyPriceLow() {
-        return buyPriceLow;
-    }
-
-    public int getSellPriceHigh() {
-        return sellPriceHigh;
-    }
-
-    public int getSellPriceLow() {
-        return sellPriceLow;
     }
 
     public PriceRange getBuyPrice() {
