@@ -6,9 +6,9 @@ import java.util.UUID;
 import kirypto.grandsignshops.UnclosedShopCommands.UnclosedShopCommand;
 
 public interface UnclosedCommandRepository {
-    void save(UnclosedShopCommand unclosedShopCommand);
+    void create(UnclosedShopCommand unclosedShopCommand);
 
-    Optional<UnclosedShopCommand> retrieveByPlayer(UUID playerUniqueId);
+    Optional<UnclosedShopCommand> retrieve(UUID playerUniqueId);
 
-    void clearByPlayer(UUID playerUniqueId);
+    void delete(UUID playerUniqueId);
 }

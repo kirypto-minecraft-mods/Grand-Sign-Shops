@@ -82,7 +82,7 @@ public class CreateShopCommandHandler implements GShopsSubCommandHandler {
             throw new WrongUsageException("Error: Sell price (high) cannot be less than buy price (low)");
         }
 
-        unclosedCommandRepository.save(UnclosedCreateShopCommand.of(
+        unclosedCommandRepository.create(UnclosedCreateShopCommand.of(
                 UnclosedShopCommandType.CREATE,
                 player.getUniqueID(),
                 itemName,

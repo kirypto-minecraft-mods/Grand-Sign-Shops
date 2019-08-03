@@ -16,18 +16,18 @@ public class InMemoryUnclosedCommandRepository implements UnclosedCommandReposit
     }
 
     @Override
-    public void save(UnclosedShopCommand unclosedShopCommand) {
+    public void create(UnclosedShopCommand unclosedShopCommand) {
         unclosedShopCommands.put(unclosedShopCommand.getPlayerUniqueId(), unclosedShopCommand);
     }
 
     @Override
-    public Optional<UnclosedShopCommand> retrieveByPlayer(UUID playerUniqueId)
+    public Optional<UnclosedShopCommand> retrieve(UUID playerUniqueId)
     {
         return Optional.ofNullable(unclosedShopCommands.get(playerUniqueId));
     }
 
     @Override
-    public void clearByPlayer(UUID playerUniqueId) {
+    public void delete(UUID playerUniqueId) {
         unclosedShopCommands.remove(playerUniqueId);
     }
 }

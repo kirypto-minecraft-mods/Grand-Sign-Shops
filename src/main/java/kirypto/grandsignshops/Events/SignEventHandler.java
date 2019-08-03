@@ -40,7 +40,7 @@ public class SignEventHandler {
     }
 
     public void handleSignClick(EntityPlayer player, TileEntitySign tileEntitySign, PlayerSignInteractionType signInteractionType) {
-        Optional<UnclosedShopCommand> unclosedShopCommandOptional = unclosedCommandRepository.retrieveByPlayer(player.getUniqueID());
+        Optional<UnclosedShopCommand> unclosedShopCommandOptional = unclosedCommandRepository.retrieve(player.getUniqueID());
         if (unclosedShopCommandOptional.isPresent()) {
             UnclosedShopCommand unclosedShopCommand = unclosedShopCommandOptional.get();
             handleSignInteractionWithUnclosedShopCommand(player, unclosedShopCommand, tileEntitySign, signInteractionType);
@@ -61,7 +61,7 @@ public class SignEventHandler {
                     minutesSinceCreation,
                     UNCLOSED_COMMAND_MAXIMUM_DURATION));
 
-            unclosedCommandRepository.clearByPlayer(player.getUniqueID());
+            unclosedCommandRepository.delete(player.getUniqueID());
             return;
         }
 
@@ -130,6 +130,6 @@ public class SignEventHandler {
                 buyPrice.getLow(),
                 sellPrice.getHigh(),
                 sellPrice.getLow()));
-        unclosedCommandRepository.clearByPlayer(player.getUniqueID());
+        unclosedCommandRepository.delete(player.getUniqueID());
     }
 }
