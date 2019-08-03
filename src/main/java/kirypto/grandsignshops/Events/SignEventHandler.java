@@ -12,6 +12,7 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.Optional;
 
+import kirypto.grandsignshops.GrandSignShop;
 import kirypto.grandsignshops.PlayerSignInteractionType;
 import kirypto.grandsignshops.Repository.BlockLocation;
 import kirypto.grandsignshops.Repository.GrandSignShopRepository;
@@ -85,10 +86,12 @@ public class SignEventHandler {
             TileEntitySign tileEntitySign) {
         BlockPos signPos = tileEntitySign.getPos();
         BlockLocation signLocation = BlockLocation.of(player.dimension, signPos);
+        BlockPos chestPos = signPos.add(0, -1, 0);
+        BlockLocation chestLocation = BlockLocation.of(player.dimension, chestPos);
         if (!(player.getEntityWorld().getBlockState(signPos).getBlock() instanceof BlockWallSign)) {
             sendPlayerMessage(player, TextFormatStyle.TEST, "Not block wall sign.");
             return;
-        } else if (!(player.getEntityWorld().getBlockState(signPos.add(0, -1, 0)).getBlock() instanceof BlockChest)) {
+        } else if (!(player.getEntityWorld().getBlockState(chestPos).getBlock() instanceof BlockChest)) {
             sendPlayerMessage(player, TextFormatStyle.WARNING, "Cannot create shop: No chest detected under sign.");
             return;
         } else if (!Arrays.stream(tileEntitySign.signText).map(ITextComponent::getFormattedText).allMatch(String::isEmpty)) {
@@ -106,6 +109,12 @@ public class SignEventHandler {
         int buyPriceLow = unclosedCreateShopCommand.getBuyPriceLow();
         int sellPriceHigh = unclosedCreateShopCommand.getSellPriceHigh();
         int sellPriceLow = unclosedCreateShopCommand.getSellPriceLow();
+
+        GrandSignShop grandSignShop = GrandSignShop.of(
+                player.getUniqueID(),
+                signLocation,
+                chestLocation
+        );
 
         tileEntitySign.signText[0] = text("/^\\");
         tileEntitySign.signText[1] = text("/___\\");
