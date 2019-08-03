@@ -94,7 +94,14 @@ public class CreateShopCommandHandler implements GShopsSubCommandHandler {
         unclosedCommandRepository.save(UnclosedCreateShopCommand.of(
                 UnclosedShopCommandType.CREATE,
                 player.getUniqueID(),
-                commandParameters));
+                commandParameters,
+                itemName,
+                metaOptional.orElse(null),
+                buyPriceHigh,
+                buyPriceLow,
+                sellPriceHigh,
+                sellPriceLow
+        ));
         sendPlayerMessage(player, format("Success: %s %s:%s %s:%s", itemName, buyPriceHigh, buyPriceLow, sellPriceHigh, sellPriceLow));
     }
 }
