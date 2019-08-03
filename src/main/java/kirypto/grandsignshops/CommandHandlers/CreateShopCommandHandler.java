@@ -1,4 +1,4 @@
-package kirypto.grandsignshops.Commands;
+package kirypto.grandsignshops.CommandHandlers;
 
 import net.minecraft.command.CommandException;
 import net.minecraft.command.WrongUsageException;

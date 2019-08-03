@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import java.io.File;
 import java.util.Optional;
 
-import kirypto.grandsignshops.Commands.MainCommandHandler;
+import kirypto.grandsignshops.CommandHandlers.MainCommandHandler;
 import kirypto.grandsignshops.Events.ForgeEventHandlers;
 import kirypto.grandsignshops.Repository.GrandSignShopRepository;
 import kirypto.grandsignshops.Repository.InMemoryUnclosedCommandRepository;
