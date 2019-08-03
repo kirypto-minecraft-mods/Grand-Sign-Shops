@@ -13,7 +13,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 import kirypto.grandsignshops.UnclosedCommandParam;
-import kirypto.grandsignshops.UnclosedShopCommand;
+import kirypto.grandsignshops.UnclosedCreateShopCommand;
 import kirypto.grandsignshops.UnclosedShopCommandType;
 import kirypto.grandsignshops.Utilities.ForgeRegistryHelper;
 import mcp.MethodsReturnNonnullByDefault;
@@ -91,7 +91,10 @@ public class CreateShopCommandHandler implements GShopsSubCommandHandler {
         commandParameters.put(UnclosedCommandParam.BUY_LOW, buyPriceLow);
         commandParameters.put(UnclosedCommandParam.SELL_HIGH, sellPriceHigh);
         commandParameters.put(UnclosedCommandParam.SELL_LOW, sellPriceLow);
-        unclosedCommandRepository.save(UnclosedShopCommand.of(UnclosedShopCommandType.CREATE, player.getUniqueID(), commandParameters));
+        unclosedCommandRepository.save(UnclosedCreateShopCommand.of(
+                UnclosedShopCommandType.CREATE,
+                player.getUniqueID(),
+                commandParameters));
         sendPlayerMessage(player, format("Success: %s %s:%s %s:%s", itemName, buyPriceHigh, buyPriceLow, sellPriceHigh, sellPriceLow));
     }
 }

@@ -10,7 +10,7 @@ public class UnclosedShopCommand {
     private final Instant creationTime;
     private final Map<UnclosedCommandParam, Object> params;
 
-    private UnclosedShopCommand(
+    protected UnclosedShopCommand(
             UnclosedShopCommandType unclosedShopCommandType,
             UUID playerUniqueId,
             Map<UnclosedCommandParam, Object> params) {
@@ -18,13 +18,6 @@ public class UnclosedShopCommand {
         this.playerUniqueId = playerUniqueId;
         this.params = params;
         this.creationTime = Instant.now();
-    }
-
-    public static UnclosedShopCommand of(
-            UnclosedShopCommandType unclosedShopCommandType,
-            UUID playerUniqueId,
-            Map<UnclosedCommandParam, Object> params) {
-        return new UnclosedShopCommand(unclosedShopCommandType, playerUniqueId, params);
     }
 
     public UnclosedShopCommandType getUnclosedShopCommandType() {

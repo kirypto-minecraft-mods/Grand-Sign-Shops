@@ -13,13 +13,12 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 
-import kirypto.grandsignshops.GrandSignShop;
 import kirypto.grandsignshops.PlayerSignInteractionType;
-import kirypto.grandsignshops.Repository.BlockLocation;
 import kirypto.grandsignshops.Repository.GrandSignShopRepository;
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 import kirypto.grandsignshops.TextFormatStyle;
 import kirypto.grandsignshops.UnclosedCommandParam;
+import kirypto.grandsignshops.UnclosedCreateShopCommand;
 import kirypto.grandsignshops.UnclosedShopCommand;
 
 import static java.lang.String.format;
@@ -69,9 +68,10 @@ public class SignEventHandler {
         //noinspection SwitchStatementWithTooFewBranches
         switch (unclosedShopCommand.getUnclosedShopCommandType()) {
             case CREATE:
-                if (signInteractionType == PlayerSignInteractionType.RIGHT_CLICK) {
-                    handleSignInteractionWithUnclosedCreateCommand(player, unclosedShopCommand, tileEntitySign);
+                if (signInteractionType != PlayerSignInteractionType.RIGHT_CLICK) {
+                    return;
                 }
+                handleSignInteractionWithUnclosedCreateCommand(player, (UnclosedCreateShopCommand) unclosedShopCommand, tileEntitySign);
                 break;
             default:
                 sendPlayerMessage(player, TextFormatStyle.ERROR, format(
@@ -82,7 +82,7 @@ public class SignEventHandler {
 
     private void handleSignInteractionWithUnclosedCreateCommand(
             EntityPlayer player,
-            UnclosedShopCommand unclosedShopCommand,
+            UnclosedCreateShopCommand unclosedCreateShopCommand,
             TileEntitySign tileEntitySign) {
         BlockPos signPos = tileEntitySign.getPos();
         if (!(player.getEntityWorld().getBlockState(signPos).getBlock() instanceof BlockWallSign)) {
@@ -96,12 +96,12 @@ public class SignEventHandler {
             return;
         }
 
-        Optional<GrandSignShop> grandSignShopOptional = grandSignShopRepository.retrieve(BlockLocation.of(player.dimension, signPos));
-        if (!grandSignShopOptional.isPresent()) {
-            sendPlayerMessage(player, TextFormatStyle.ERROR, "Cannot create shop: Shop already exists there.");
-        }
+        // Optional<GrandSignShop> grandSignShopOptional = grandSignShopRepository.retrieve(BlockLocation.of(player.dimension, signPos));
+        // if (!grandSignShopOptional.isPresent()) {
+        //     sendPlayerMessage(player, TextFormatStyle.ERROR, "Cannot create shop: Shop already exists there.");
+        // }
 
-        Map<UnclosedCommandParam, Object> commandParams = unclosedShopCommand.getParams();
+        Map<UnclosedCommandParam, Object> commandParams = unclosedCreateShopCommand.getParams();
 
         String itemName = (String) commandParams.get(UnclosedCommandParam.ITEM);
         Optional<Integer> metaOptional = Optional.ofNullable((Integer) commandParams.get(UnclosedCommandParam.META));
