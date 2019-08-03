@@ -100,8 +100,9 @@ public class SignEventHandler {
             return;
         }
 
-        if (!grandSignShopRepository.retrieve(signLocation).isPresent()) {
+        if (grandSignShopRepository.retrieve(signLocation).isPresent()) {
             sendPlayerMessage(player, TextFormatStyle.ERROR, "Cannot create shop: Shop already exists there.");
+            return;
         }
 
         String itemName = unclosedCreateShopCommand.getItemName();
