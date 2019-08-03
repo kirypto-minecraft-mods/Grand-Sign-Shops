@@ -4,7 +4,6 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -17,6 +16,7 @@ import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 import kirypto.grandsignshops.UnclosedCommandParam;
 import kirypto.grandsignshops.UnclosedShopCommand;
 import kirypto.grandsignshops.UnclosedShopCommandType;
+import kirypto.grandsignshops.Utilities.ForgeRegistryHelper;
 import mcp.MethodsReturnNonnullByDefault;
 
 import static java.lang.String.format;
@@ -59,14 +59,14 @@ public class CreateShopCommandHandler implements GShopsSubCommandHandler {
 
         String[] itemAndOptionalMeta = commandArgs.get(0).split("@");
 
-        ResourceLocation item = new ResourceLocation(itemAndOptionalMeta[0]);
+        String itemName = itemAndOptionalMeta[0];
         Optional<Integer> metaOptional = (itemAndOptionalMeta.length > 1 ? Optional.of(parseInt(itemAndOptionalMeta[1])) : Optional.empty());
         int sellPriceHigh = parseInt(commandArgs.get(1));
         int sellPriceLow = parseInt(commandArgs.get(2));
         int buyPriceHigh = parseInt(commandArgs.get(3));
         int buyPriceLow = parseInt(commandArgs.get(4));
 
-        if (!ForgeRegistries.ITEMS.containsKey(item)) {
+        if (!ForgeRegistryHelper.isValidItem(itemName)) {
             throw new WrongUsageException("Error: Item not found");
         }
         if (metaOptional.isPresent() && metaOptional.get() < 0) {
@@ -86,13 +86,13 @@ public class CreateShopCommandHandler implements GShopsSubCommandHandler {
         }
 
         Map<UnclosedCommandParam, Object> commandParameters = new LinkedHashMap<>();
-        commandParameters.put(UnclosedCommandParam.ITEM, item);
+        commandParameters.put(UnclosedCommandParam.ITEM, new ResourceLocation(itemName));
         commandParameters.put(UnclosedCommandParam.META, metaOptional.orElse(null));
         commandParameters.put(UnclosedCommandParam.BUY_HIGH, buyPriceHigh);
         commandParameters.put(UnclosedCommandParam.BUY_LOW, buyPriceLow);
         commandParameters.put(UnclosedCommandParam.SELL_HIGH, sellPriceHigh);
         commandParameters.put(UnclosedCommandParam.SELL_LOW, sellPriceLow);
         unclosedCommandRepository.save(UnclosedShopCommand.of(UnclosedShopCommandType.CREATE, player.getUniqueID(), commandParameters));
-        sendPlayerMessage(player, format("Success: %s %s:%s %s:%s", item, buyPriceHigh, buyPriceLow, sellPriceHigh, sellPriceLow));
+        sendPlayerMessage(player, format("Success: %s %s:%s %s:%s", itemName, buyPriceHigh, buyPriceLow, sellPriceHigh, sellPriceLow));
     }
 }

@@ -2,8 +2,10 @@ package kirypto.grandsignshops;
 
 import net.minecraft.command.NumberInvalidException;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class Utilities {
 
@@ -28,5 +30,15 @@ public class Utilities {
 
     public static ITextComponent text(String text) {
         return new TextComponentString(text);
+    }
+
+    public static class ForgeRegistryHelper {
+        public static boolean isValidItem(String itemName) {
+            return isValidItem(new ResourceLocation(itemName));
+        }
+
+        private static boolean isValidItem(ResourceLocation resourceLocation) {
+            return ForgeRegistries.ITEMS.containsKey(resourceLocation);
+        }
     }
 }
