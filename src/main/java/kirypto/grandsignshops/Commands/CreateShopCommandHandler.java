@@ -66,8 +66,7 @@ public class CreateShopCommandHandler implements GShopsSubCommandHandler {
         int buyPriceHigh = parseInt(commandArgs.get(3));
         int buyPriceLow = parseInt(commandArgs.get(4));
 
-        boolean isValidRequest = ForgeRegistries.BLOCKS.containsKey(item) || ForgeRegistries.ITEMS.containsKey(item);
-        if (!isValidRequest) {
+        if (!ForgeRegistries.ITEMS.containsKey(item)) {
             throw new WrongUsageException("Error: Item not found");
         }
         if (metaOptional.isPresent() && metaOptional.get() < 0) {
