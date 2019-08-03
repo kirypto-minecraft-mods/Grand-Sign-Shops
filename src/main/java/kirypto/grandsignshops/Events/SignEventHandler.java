@@ -5,6 +5,7 @@ import net.minecraft.block.BlockWallSign;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 
 import java.time.Duration;
@@ -13,7 +14,9 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 
+import kirypto.grandsignshops.GrandSignShop;
 import kirypto.grandsignshops.PlayerSignInteractionType;
+import kirypto.grandsignshops.Repository.BlockLocation;
 import kirypto.grandsignshops.Repository.GrandSignShopRepository;
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 import kirypto.grandsignshops.TextFormatStyle;
@@ -82,15 +85,21 @@ public class SignEventHandler {
             EntityPlayer player,
             UnclosedShopCommand unclosedShopCommand,
             TileEntitySign tileEntitySign) {
-        if (!(player.getEntityWorld().getBlockState(tileEntitySign.getPos()).getBlock() instanceof BlockWallSign)) {
+        BlockPos signPos = tileEntitySign.getPos();
+        if (!(player.getEntityWorld().getBlockState(signPos).getBlock() instanceof BlockWallSign)) {
             sendPlayerMessage(player, TextFormatStyle.TEST, "Not block wall sign.");
             return;
-        } else if (!(player.getEntityWorld().getBlockState(tileEntitySign.getPos().add(0, -1, 0)).getBlock() instanceof BlockChest)) {
+        } else if (!(player.getEntityWorld().getBlockState(signPos.add(0, -1, 0)).getBlock() instanceof BlockChest)) {
             sendPlayerMessage(player, TextFormatStyle.WARNING, "Cannot create shop: No chest detected under sign.");
             return;
         } else if (!Arrays.stream(tileEntitySign.signText).map(ITextComponent::getFormattedText).allMatch(String::isEmpty)) {
             sendPlayerMessage(player, TextFormatStyle.WARNING, "Cannot create shop: The sign must not have any text.");
             return;
+        }
+
+        Optional<GrandSignShop> grandSignShopOptional = grandSignShopRepository.retrieve(BlockLocation.of(player.dimension, signPos));
+        if (!grandSignShopOptional.isPresent()) {
+            sendPlayerMessage(player, TextFormatStyle.ERROR, "Cannot create shop: Shop already exists there.");
         }
 
         Map<UnclosedCommandParam, Object> commandParams = unclosedShopCommand.getParams();
