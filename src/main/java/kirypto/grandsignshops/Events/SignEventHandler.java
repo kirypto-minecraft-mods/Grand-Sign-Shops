@@ -112,7 +112,9 @@ public class SignEventHandler {
         GrandSignShop grandSignShop = GrandSignShop.of(
                 player.getUniqueID(),
                 signLocation,
-                chestLocation
+                chestLocation,
+                buyPrice,
+                sellPrice
         );
 
         tileEntitySign.signText[0] = text("/^\\");
