@@ -3,9 +3,13 @@ package kirypto.grandsignshops.UnclosedShopCommands;
 import java.util.Optional;
 import java.util.UUID;
 
+import kirypto.grandsignshops.PriceRange;
+
 public class UnclosedCreateShopCommand extends UnclosedShopCommand {
     private final String itemName;
     private final Integer metadataOrNull;
+    private final PriceRange buyPrice;
+    private final PriceRange sellPrice;
     private final int buyPriceHigh;
     private final int buyPriceLow;
     private final int sellPriceHigh;
@@ -23,6 +27,8 @@ public class UnclosedCreateShopCommand extends UnclosedShopCommand {
         super(unclosedShopCommandType, playerUniqueId);
         this.itemName = itemName;
         this.metadataOrNull = metadataOrNull;
+        this.buyPrice = PriceRange.of(buyPriceLow, buyPriceHigh);
+        this.sellPrice = PriceRange.of(sellPriceLow, sellPriceHigh);
         this.buyPriceHigh = buyPriceHigh;
         this.buyPriceLow = buyPriceLow;
         this.sellPriceHigh = sellPriceHigh;
@@ -71,5 +77,13 @@ public class UnclosedCreateShopCommand extends UnclosedShopCommand {
 
     public int getSellPriceLow() {
         return sellPriceLow;
+    }
+
+    public PriceRange getBuyPrice() {
+        return buyPrice;
+    }
+
+    public PriceRange getSellPrice() {
+        return sellPrice;
     }
 }
