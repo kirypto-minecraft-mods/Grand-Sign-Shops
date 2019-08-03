@@ -100,9 +100,9 @@ public class SignEventHandler {
             return;
         }
 
-        // if (!grandSignShopRepository.retrieve(signLocation).isPresent()) {
-        //     sendPlayerMessage(player, TextFormatStyle.ERROR, "Cannot create shop: Shop already exists there.");
-        // }
+        if (!grandSignShopRepository.retrieve(signLocation).isPresent()) {
+            sendPlayerMessage(player, TextFormatStyle.ERROR, "Cannot create shop: Shop already exists there.");
+        }
 
         String itemName = unclosedCreateShopCommand.getItemName();
         Optional<Integer> metaOptional = unclosedCreateShopCommand.getMetadata();
@@ -116,6 +116,7 @@ public class SignEventHandler {
                 buyPrice,
                 sellPrice
         );
+        grandSignShopRepository.create(grandSignShop);
 
         tileEntitySign.signText[0] = text("/^\\");
         tileEntitySign.signText[1] = text("/___\\");
