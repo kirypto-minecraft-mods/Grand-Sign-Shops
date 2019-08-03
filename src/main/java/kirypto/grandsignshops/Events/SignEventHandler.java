@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import kirypto.grandsignshops.PlayerSignInteractionType;
+import kirypto.grandsignshops.Repository.BlockLocation;
 import kirypto.grandsignshops.Repository.GrandSignShopRepository;
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 import kirypto.grandsignshops.TextFormatStyle;
@@ -83,6 +84,7 @@ public class SignEventHandler {
             UnclosedCreateShopCommand unclosedCreateShopCommand,
             TileEntitySign tileEntitySign) {
         BlockPos signPos = tileEntitySign.getPos();
+        BlockLocation signLocation = BlockLocation.of(player.dimension, signPos);
         if (!(player.getEntityWorld().getBlockState(signPos).getBlock() instanceof BlockWallSign)) {
             sendPlayerMessage(player, TextFormatStyle.TEST, "Not block wall sign.");
             return;
@@ -94,8 +96,7 @@ public class SignEventHandler {
             return;
         }
 
-        // Optional<GrandSignShop> grandSignShopOptional = grandSignShopRepository.retrieve(BlockLocation.of(player.dimension, signPos));
-        // if (!grandSignShopOptional.isPresent()) {
+        // if (!grandSignShopRepository.retrieve(signLocation).isPresent()) {
         //     sendPlayerMessage(player, TextFormatStyle.ERROR, "Cannot create shop: Shop already exists there.");
         // }
 
