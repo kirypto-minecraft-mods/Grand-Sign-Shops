@@ -4,15 +4,12 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayerMP;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
-import kirypto.grandsignshops.UnclosedCommandParam;
 import kirypto.grandsignshops.UnclosedCreateShopCommand;
 import kirypto.grandsignshops.UnclosedShopCommandType;
 import kirypto.grandsignshops.Utilities.ForgeRegistryHelper;
@@ -84,17 +81,9 @@ public class CreateShopCommandHandler implements GShopsSubCommandHandler {
             throw new WrongUsageException("Error: Sell price (high) cannot be less than buy price (low)");
         }
 
-        Map<UnclosedCommandParam, Object> commandParameters = new LinkedHashMap<>();
-        commandParameters.put(UnclosedCommandParam.ITEM, itemName);
-        commandParameters.put(UnclosedCommandParam.META, metaOptional.orElse(null));
-        commandParameters.put(UnclosedCommandParam.BUY_HIGH, buyPriceHigh);
-        commandParameters.put(UnclosedCommandParam.BUY_LOW, buyPriceLow);
-        commandParameters.put(UnclosedCommandParam.SELL_HIGH, sellPriceHigh);
-        commandParameters.put(UnclosedCommandParam.SELL_LOW, sellPriceLow);
         unclosedCommandRepository.save(UnclosedCreateShopCommand.of(
                 UnclosedShopCommandType.CREATE,
                 player.getUniqueID(),
-                commandParameters,
                 itemName,
                 metaOptional.orElse(null),
                 buyPriceHigh,

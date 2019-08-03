@@ -1,6 +1,5 @@
 package kirypto.grandsignshops;
 
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -15,14 +14,13 @@ public class UnclosedCreateShopCommand extends UnclosedShopCommand {
     private UnclosedCreateShopCommand(
             UnclosedShopCommandType unclosedShopCommandType,
             UUID playerUniqueId,
-            Map<UnclosedCommandParam, Object> params,
             String itemName,
             Integer metadataOrNull,
             int buyPriceHigh,
             int buyPriceLow,
             int sellPriceHigh,
             int sellPriceLow) {
-        super(unclosedShopCommandType, playerUniqueId, params);
+        super(unclosedShopCommandType, playerUniqueId);
         this.itemName = itemName;
         this.metadataOrNull = metadataOrNull;
         this.buyPriceHigh = buyPriceHigh;
@@ -34,7 +32,6 @@ public class UnclosedCreateShopCommand extends UnclosedShopCommand {
     public static UnclosedCreateShopCommand of(
             UnclosedShopCommandType unclosedShopCommandType,
             UUID playerUniqueId,
-            Map<UnclosedCommandParam, Object> params,
             String itemName,
             Integer metadataOrNull,
             int buyPriceHigh,
@@ -44,7 +41,6 @@ public class UnclosedCreateShopCommand extends UnclosedShopCommand {
         return new UnclosedCreateShopCommand(
                 unclosedShopCommandType,
                 playerUniqueId,
-                params,
                 itemName,
                 metadataOrNull,
                 buyPriceHigh,
