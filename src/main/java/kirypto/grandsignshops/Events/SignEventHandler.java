@@ -10,14 +10,12 @@ import net.minecraft.util.text.ITextComponent;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Optional;
 
 import kirypto.grandsignshops.PlayerSignInteractionType;
 import kirypto.grandsignshops.Repository.GrandSignShopRepository;
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 import kirypto.grandsignshops.TextFormatStyle;
-import kirypto.grandsignshops.UnclosedCommandParam;
 import kirypto.grandsignshops.UnclosedCreateShopCommand;
 import kirypto.grandsignshops.UnclosedShopCommand;
 
@@ -101,14 +99,12 @@ public class SignEventHandler {
         //     sendPlayerMessage(player, TextFormatStyle.ERROR, "Cannot create shop: Shop already exists there.");
         // }
 
-        Map<UnclosedCommandParam, Object> commandParams = unclosedCreateShopCommand.getParams();
-
-        String itemName = (String) commandParams.get(UnclosedCommandParam.ITEM);
-        Optional<Integer> metaOptional = Optional.ofNullable((Integer) commandParams.get(UnclosedCommandParam.META));
-        int buyPriceHigh = (int) commandParams.get(UnclosedCommandParam.BUY_HIGH);
-        int buyPriceLow = (int) commandParams.get(UnclosedCommandParam.BUY_LOW);
-        int sellPriceHigh = (int) commandParams.get(UnclosedCommandParam.SELL_HIGH);
-        int sellPriceLow = (int) commandParams.get(UnclosedCommandParam.SELL_LOW);
+        String itemName = unclosedCreateShopCommand.getItemName();
+        Optional<Integer> metaOptional = unclosedCreateShopCommand.getMetadata();
+        int buyPriceHigh = unclosedCreateShopCommand.getBuyPriceHigh();
+        int buyPriceLow = unclosedCreateShopCommand.getBuyPriceLow();
+        int sellPriceHigh = unclosedCreateShopCommand.getSellPriceHigh();
+        int sellPriceLow = unclosedCreateShopCommand.getSellPriceLow();
 
         tileEntitySign.signText[0] = text("/^\\");
         tileEntitySign.signText[1] = text("/___\\");
