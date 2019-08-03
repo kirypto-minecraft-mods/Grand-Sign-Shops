@@ -4,7 +4,6 @@ import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockWallSign;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 
@@ -104,7 +103,7 @@ public class SignEventHandler {
 
         Map<UnclosedCommandParam, Object> commandParams = unclosedShopCommand.getParams();
 
-        ResourceLocation item = (ResourceLocation) commandParams.get(UnclosedCommandParam.ITEM);
+        String itemName = (String) commandParams.get(UnclosedCommandParam.ITEM);
         Optional<Integer> metaOptional = Optional.ofNullable((Integer) commandParams.get(UnclosedCommandParam.META));
         int buyPriceHigh = (int) commandParams.get(UnclosedCommandParam.BUY_HIGH);
         int buyPriceLow = (int) commandParams.get(UnclosedCommandParam.BUY_LOW);
@@ -118,7 +117,7 @@ public class SignEventHandler {
 
         sendPlayerMessage(player, TextFormatStyle.SUCCESS, format(
                 "Successfully (kinda) handled create command! Read params: %s%s %s:%s %s:%s",
-                item,
+                itemName,
                 metaOptional.map(aDouble -> format("@%s", aDouble)).orElse(""),
                 buyPriceHigh,
                 buyPriceLow,

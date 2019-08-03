@@ -3,7 +3,6 @@ package kirypto.grandsignshops.Commands;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.ResourceLocation;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -86,7 +85,7 @@ public class CreateShopCommandHandler implements GShopsSubCommandHandler {
         }
 
         Map<UnclosedCommandParam, Object> commandParameters = new LinkedHashMap<>();
-        commandParameters.put(UnclosedCommandParam.ITEM, new ResourceLocation(itemName));
+        commandParameters.put(UnclosedCommandParam.ITEM, itemName);
         commandParameters.put(UnclosedCommandParam.META, metaOptional.orElse(null));
         commandParameters.put(UnclosedCommandParam.BUY_HIGH, buyPriceHigh);
         commandParameters.put(UnclosedCommandParam.BUY_LOW, buyPriceLow);
