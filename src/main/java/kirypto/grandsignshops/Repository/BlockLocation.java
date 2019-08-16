@@ -1,6 +1,7 @@
 package kirypto.grandsignshops.Repository;
 
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -19,9 +20,16 @@ public class BlockLocation {
         this.z = z;
     }
 
+    /**
+     * @deprecated use {@link #of(World, BlockPos)} instead
+     */
+    @Deprecated
     public static BlockLocation of(int dimension, BlockPos blockPos) {
         return new BlockLocation(dimension, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
+     public static BlockLocation of(World world, BlockPos blockPos) {
+        return new BlockLocation(world.getWorldType().getId(), blockPos.getX(), blockPos.getY(), blockPos.getZ());
+     }
 
     @Override
     public boolean equals(Object obj) {
