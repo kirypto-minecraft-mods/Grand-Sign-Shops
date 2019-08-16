@@ -73,14 +73,10 @@ public class PlayerSignInteractionHandler {
 
         TileEntitySign tileEntitySign = (TileEntitySign) tileEntity;
 
-        handleSignClick(player, tileEntitySign, interactionType);
-    }
-
-    private void handleSignClick(EntityPlayer player, TileEntitySign tileEntitySign, PlayerSignInteractionType signInteractionType) {
         Optional<UnclosedShopCommand> unclosedShopCommandOptional = unclosedCommandRepository.retrieve(player.getUniqueID());
         if (unclosedShopCommandOptional.isPresent()) {
             UnclosedShopCommand unclosedShopCommand = unclosedShopCommandOptional.get();
-            handleSignInteractionWithUnclosedShopCommand(player, unclosedShopCommand, tileEntitySign, signInteractionType);
+            handleSignInteractionWithUnclosedShopCommand(player, unclosedShopCommand, tileEntitySign, interactionType);
         }
     }
 
