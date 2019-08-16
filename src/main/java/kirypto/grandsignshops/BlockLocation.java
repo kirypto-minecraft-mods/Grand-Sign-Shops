@@ -28,7 +28,7 @@ public class BlockLocation {
         return new BlockLocation(dimension, blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
      public static BlockLocation of(World world, BlockPos blockPos) {
-        return new BlockLocation(world.getWorldType().getId(), blockPos.getX(), blockPos.getY(), blockPos.getZ());
+         return new BlockLocation(world.provider.getDimension(), blockPos.getX(), blockPos.getY(), blockPos.getZ());
      }
 
     @Override
