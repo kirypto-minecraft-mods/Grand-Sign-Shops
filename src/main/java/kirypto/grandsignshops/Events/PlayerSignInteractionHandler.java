@@ -121,21 +121,20 @@ public class PlayerSignInteractionHandler {
             UnclosedCreateShopCommand unclosedCreateShopCommand,
             TileEntitySign tileEntitySign) {
         BlockPos signPos = tileEntitySign.getPos();
-        BlockLocation signLocation = BlockLocation.of(player.getEntityWorld(), signPos);
+        World world = player.getEntityWorld();
+        BlockLocation signLocation = BlockLocation.of(world, signPos);
         BlockPos chestPos = signPos.add(0, -1, 0);
-        BlockLocation chestLocation = BlockLocation.of(player.getEntityWorld(), chestPos);
-        if (!(player.getEntityWorld().getBlockState(signPos).getBlock() instanceof BlockWallSign)) {
+        BlockLocation chestLocation = BlockLocation.of(world, chestPos);
+        if (!(world.getBlockState(signPos).getBlock() instanceof BlockWallSign)) {
             sendPlayerMessage(player, TextFormatStyle.TEST, "Not block wall sign.");
             return;
         } else if (!Arrays.stream(tileEntitySign.signText).map(ITextComponent::getFormattedText).allMatch(String::isEmpty)) {
             sendPlayerMessage(player, TextFormatStyle.WARNING, "Cannot create shop: The sign must not have any text.");
             return;
-        } else if (!(player.getEntityWorld().getBlockState(chestPos).getBlock() instanceof BlockChest)) {
+        } else if (!(world.getBlockState(chestPos).getBlock() instanceof BlockChest)) {
             sendPlayerMessage(player, TextFormatStyle.WARNING, "Cannot create shop: No chest detected under sign.");
             return;
-        }
-
-        if (grandSignShopRepository.retrieve(signLocation).isPresent()) {
+        } else if (grandSignShopRepository.retrieve(signLocation).isPresent()) {
             sendPlayerMessage(player, TextFormatStyle.ERROR, "Cannot create shop: Shop already exists there.");
             return;
         }
