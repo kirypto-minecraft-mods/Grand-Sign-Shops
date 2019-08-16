@@ -31,14 +31,19 @@ public class ForgeEventHandlers {
         this.shopProtectionHandler = new ShopProtectionHandler(grandSignShopRepository);
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGH)
-    public void highPriority_onBlockBreak(BlockEvent.BreakEvent event)
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void highestPriority_onBlockBreak(BlockEvent.BreakEvent event)
     {
         shopProtectionHandler.handleShopProtection(event);
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGH)
-    public void highPriority_onDetonation(ExplosionEvent.Detonate event) {
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void highestPriority_onBlockPlace(BlockEvent.PlaceEvent event) {
+        shopProtectionHandler.handleShopProtection(event);
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void highestPriority_onDetonation(ExplosionEvent.Detonate event) {
         shopProtectionHandler.handleShopProtection(event);
     }
 

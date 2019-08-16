@@ -18,10 +18,10 @@ public class ShopProtectionHandler {
         this.grandSignShopRepository = grandSignShopRepository;
     }
 
-    public void handleShopProtection(BlockEvent.BreakEvent breakEvent) {
-        BlockLocation eventBlockLocation = BlockLocation.of(breakEvent.getWorld(), breakEvent.getPos());
+    public void handleShopProtection(BlockEvent.BreakEvent event) {
+        BlockLocation eventBlockLocation = BlockLocation.of(event.getWorld(), event.getPos());
         if (grandSignShopRepository.retrieve(eventBlockLocation).isPresent()) {
-            breakEvent.setCanceled(true);
+            event.setCanceled(true);
         }
     }
 
@@ -38,6 +38,13 @@ public class ShopProtectionHandler {
 
         for (BlockPos protectedBlock : protectedBlocks) {
             event.getAffectedBlocks().remove(protectedBlock);
+        }
+    }
+
+    public void handleShopProtection(BlockEvent.PlaceEvent event) {
+        BlockLocation eventBlockLocation = BlockLocation.of(event.getWorld(), event.getPos());
+        if (grandSignShopRepository.retrieve(eventBlockLocation).isPresent()) {
+            event.setCanceled(true);
         }
     }
 }
