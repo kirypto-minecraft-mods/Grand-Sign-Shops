@@ -1,6 +1,9 @@
 package kirypto.grandsignshops;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class GrandSignShop {
     private final UUID playerID;
@@ -10,6 +13,7 @@ public class GrandSignShop {
     private final Integer metadata;
     private final PriceRange buyPrice;
     private final PriceRange sellPrice;
+    private final List<BlockLocation> additionalProtectedLocations;
 
     private GrandSignShop(
             UUID playerID,
@@ -26,6 +30,17 @@ public class GrandSignShop {
         this.metadata = metadata;
         this.buyPrice = buyPrice;
         this.sellPrice = sellPrice;
+        this.additionalProtectedLocations = Stream.of(
+                BlockLocation.shift(signLocation, 1, 0, 0),
+                BlockLocation.shift(signLocation, -1, 0, 0),
+                BlockLocation.shift(signLocation, 0, 0, 1),
+                BlockLocation.shift(signLocation, 0, 0, -1),
+                BlockLocation.shift(chestLocation, 1, 0, 0),
+                BlockLocation.shift(chestLocation, -1, 0, 0),
+                BlockLocation.shift(chestLocation, 0, 0, 1),
+                BlockLocation.shift(chestLocation, 0, 0, -1),
+                BlockLocation.shift(chestLocation, 0, -1, 0)
+        ).collect(Collectors.toList());
     }
 
     public static GrandSignShop of(
@@ -75,5 +90,9 @@ public class GrandSignShop {
 
     public PriceRange getSellPrice() {
         return sellPrice;
+    }
+
+    public List<BlockLocation> getAdditionalProtectedLocations() {
+        return additionalProtectedLocations;
     }
 }

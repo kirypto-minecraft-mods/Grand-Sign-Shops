@@ -69,4 +69,8 @@ public class BlockLocation {
     public int getZ() {
         return z;
     }
+
+    public static BlockLocation shift(BlockLocation blockLocation, int dx, int dy, int dz) {
+        return new BlockLocation(blockLocation.dimension, blockLocation.x + dx, blockLocation.y + dy, blockLocation.z + dz);
+    }
 }

@@ -24,8 +24,12 @@ public class JsonGrandSignShopRepository implements GrandSignShopRepository {
 
     @Override
     public void create(GrandSignShop grandSignShop) {
-        signLocationToGrandSignShopLocation.put(grandSignShop.getSignLocation(), grandSignShop);
-        allGrandSignShopLocationsToCorrespondingSignLocation.put(grandSignShop.getChestLocation(), grandSignShop.getSignLocation());
+        BlockLocation signLocation = grandSignShop.getSignLocation();
+        signLocationToGrandSignShopLocation.put(signLocation, grandSignShop);
+        allGrandSignShopLocationsToCorrespondingSignLocation.put(grandSignShop.getChestLocation(), signLocation);
+        for (BlockLocation additionalProtectedLocation : grandSignShop.getAdditionalProtectedLocations()) {
+            allGrandSignShopLocationsToCorrespondingSignLocation.put(additionalProtectedLocation, signLocation);
+        }
     }
 
     @Override
