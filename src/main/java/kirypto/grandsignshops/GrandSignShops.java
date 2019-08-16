@@ -10,6 +10,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.io.File;
 import java.util.Optional;
@@ -31,6 +33,7 @@ public final class GrandSignShops {
     @Mod.Instance(GrandSignShops.MOD_ID)
     public static GrandSignShops instance;
 
+    @SideOnly(value = Side.SERVER)
     @EventHandler
     public void onServerStart(FMLServerStartingEvent event) {
         System.out.println("@@@@@@@@@@@@@@@@@@@@ On Server Start");
