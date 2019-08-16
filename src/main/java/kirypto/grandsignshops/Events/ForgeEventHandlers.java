@@ -36,6 +36,16 @@ public class ForgeEventHandlers {
         shopProtectionHandler.handleShopProtection(event);
     }
 
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void highestPriority_onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
+        shopProtectionHandler.handleShopProtection(event);
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void highestPriority_onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        shopProtectionHandler.handleShopProtection(event);
+    }
+
     @SubscribeEvent(priority = EventPriority.NORMAL)
     public void normalPriority_onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
         playerSignInteractionHandler.handleLeftClickBlock(event);
