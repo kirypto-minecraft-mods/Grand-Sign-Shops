@@ -110,13 +110,9 @@ public class SignEventHandler {
         PriceRange buyPrice = unclosedCreateShopCommand.getBuyPrice();
         PriceRange sellPrice = unclosedCreateShopCommand.getSellPrice();
 
-        GrandSignShop grandSignShop = GrandSignShop.of(
-                player.getUniqueID(),
-                signLocation,
-                chestLocation,
-                buyPrice,
-                sellPrice
-        );
+        GrandSignShop grandSignShop = metaOptional
+                .map(metadata -> GrandSignShop.of(player.getUniqueID(), signLocation, chestLocation, itemName, metadata, buyPrice, sellPrice))
+                .orElseGet(() -> GrandSignShop.of(player.getUniqueID(), signLocation, chestLocation, itemName, buyPrice, sellPrice));
         grandSignShopRepository.create(grandSignShop);
 
         tileEntitySign.signText[0] = text("/^\\");
