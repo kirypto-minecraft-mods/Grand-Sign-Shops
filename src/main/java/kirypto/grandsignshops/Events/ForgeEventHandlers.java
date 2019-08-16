@@ -26,14 +26,14 @@ import static java.lang.String.format;
 import static kirypto.grandsignshops.Utilities.sendPlayerMessage;
 
 public class ForgeEventHandlers {
-    private final SignEventHandler signEventHandler;
+    private final PlayerSignInteractionHandler playerSignInteractionHandler;
     private final GrandSignShopRepository grandSignShopRepository;
 
     public ForgeEventHandlers(
             UnclosedCommandRepository unclosedCommandRepository,
             GrandSignShopRepository grandSignShopRepository) {
         this.grandSignShopRepository = grandSignShopRepository;
-        this.signEventHandler = new SignEventHandler(unclosedCommandRepository, grandSignShopRepository);
+        this.playerSignInteractionHandler = new PlayerSignInteractionHandler(unclosedCommandRepository, grandSignShopRepository);
     }
 
     @SubscribeEvent
@@ -65,7 +65,7 @@ public class ForgeEventHandlers {
 
         TileEntitySign tileEntitySign = (TileEntitySign) tileEntity;
 
-        signEventHandler.handleSignClick(player, tileEntitySign, interactionType);
+        playerSignInteractionHandler.handleSignClick(player, tileEntitySign, interactionType);
     }
 
     // TODO kirypto 2019-Aug-16: Move this to a protected block handler class

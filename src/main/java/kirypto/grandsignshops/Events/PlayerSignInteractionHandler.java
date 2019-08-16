@@ -26,13 +26,13 @@ import static java.lang.String.format;
 import static kirypto.grandsignshops.Utilities.sendPlayerMessage;
 import static kirypto.grandsignshops.Utilities.text;
 
-public class SignEventHandler {
+public class PlayerSignInteractionHandler {
     private static final int UNCLOSED_COMMAND_MAXIMUM_DURATION = 2;
 
     private final UnclosedCommandRepository unclosedCommandRepository;
     private final GrandSignShopRepository grandSignShopRepository;
 
-    public SignEventHandler(
+    public PlayerSignInteractionHandler(
             UnclosedCommandRepository unclosedCommandRepository,
             GrandSignShopRepository grandSignShopRepository) {
         this.unclosedCommandRepository = unclosedCommandRepository;
