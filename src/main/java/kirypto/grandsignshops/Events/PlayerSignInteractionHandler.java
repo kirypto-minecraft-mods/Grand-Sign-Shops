@@ -2,6 +2,7 @@ package kirypto.grandsignshops.Events;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
+import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockSign;
 import net.minecraft.block.BlockWallSign;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,6 +17,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import kirypto.grandsignshops.BlockLocation;
 import kirypto.grandsignshops.GrandSignShop;
@@ -125,17 +127,31 @@ public class PlayerSignInteractionHandler {
         BlockLocation signLocation = BlockLocation.of(world, signPos);
         BlockPos chestPos = signPos.add(0, -1, 0);
         BlockLocation chestLocation = BlockLocation.of(world, chestPos);
-        if (!(world.getBlockState(signPos).getBlock() instanceof BlockWallSign)) {
-            sendPlayerMessage(player, TextFormatStyle.TEST, "Not block wall sign.");
-            return;
-        } else if (!Arrays.stream(tileEntitySign.signText).map(ITextComponent::getFormattedText).allMatch(String::isEmpty)) {
-            sendPlayerMessage(player, TextFormatStyle.WARNING, "Cannot create shop: The sign must not have any text.");
-            return;
-        } else if (!(world.getBlockState(chestPos).getBlock() instanceof BlockChest)) {
-            sendPlayerMessage(player, TextFormatStyle.WARNING, "Cannot create shop: No chest detected under sign.");
-            return;
-        } else if (grandSignShopRepository.retrieve(signLocation).isPresent()) {
+        boolean isShopAlreadyLocatedAtLocation = grandSignShopRepository.retrieve(signLocation).isPresent();
+        boolean isWallSignAtEventLocation = (world.getBlockState(signPos).getBlock() instanceof BlockWallSign);
+        boolean signAlreadyHasText = !Arrays.stream(tileEntitySign.signText).map(ITextComponent::getFormattedText).allMatch(String::isEmpty);
+        boolean isChestLocatedUnderSign = world.getBlockState(chestPos).getBlock() instanceof BlockChest;
+        boolean isAnotherContainerAdjacentToChest = Stream.of(chestPos.north(), chestPos.east(), chestPos.south(), chestPos.west())
+                .map(blockPos -> world.getBlockState(blockPos).getBlock())
+                .anyMatch(block -> block instanceof BlockContainer);
+        if (isShopAlreadyLocatedAtLocation) {
             sendPlayerMessage(player, TextFormatStyle.ERROR, "Cannot create shop: Shop already exists there.");
+            return;
+        }
+        if (signAlreadyHasText) {
+            sendPlayerMessage(player, TextFormatStyle.ERROR, "Cannot create shop: The sign must not have any text.");
+            return;
+        }
+        if (!isChestLocatedUnderSign) {
+            sendPlayerMessage(player, TextFormatStyle.ERROR, "Cannot create shop: No chest detected under sign.");
+            return;
+        }
+        if (isAnotherContainerAdjacentToChest) {
+            sendPlayerMessage(player, TextFormatStyle.ERROR, "Cannot create shop: Another container block is located next to the chest.");
+            return;
+        }
+        if (!isWallSignAtEventLocation) {
+            sendPlayerMessage(player, TextFormatStyle.TEST, "Not block wall sign.");
             return;
         }
 
