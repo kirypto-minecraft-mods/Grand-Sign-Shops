@@ -13,27 +13,22 @@ import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import kirypto.grandsignshops.BlockLocation;
 import kirypto.grandsignshops.PlayerSignInteractionType;
 import kirypto.grandsignshops.Repository.GrandSignShopRepository;
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 import kirypto.grandsignshops.TextFormatStyle;
 
-import static java.lang.String.format;
 import static kirypto.grandsignshops.Utilities.sendPlayerMessage;
 
 public class ForgeEventHandlers {
     private final PlayerSignInteractionHandler playerSignInteractionHandler;
-    private final GrandSignShopRepository grandSignShopRepository;
+    private final ShopProtectionHandler shopProtectionHandler;
 
     public ForgeEventHandlers(
             UnclosedCommandRepository unclosedCommandRepository,
             GrandSignShopRepository grandSignShopRepository) {
-        this.grandSignShopRepository = grandSignShopRepository;
         this.playerSignInteractionHandler = new PlayerSignInteractionHandler(unclosedCommandRepository, grandSignShopRepository);
+        this.shopProtectionHandler = new ShopProtectionHandler(grandSignShopRepository);
     }
 
     @SubscribeEvent
@@ -68,37 +63,14 @@ public class ForgeEventHandlers {
         playerSignInteractionHandler.handleSignClick(player, tileEntitySign, interactionType);
     }
 
-    // TODO kirypto 2019-Aug-16: Move this to a protected block handler class
     @SubscribeEvent(priority = EventPriority.HIGH)
-    public void onBlockBreakTEST(BlockEvent.BreakEvent event)
+    public void onBlockBreak(BlockEvent.BreakEvent event)
     {
-        BlockLocation eventBlockLocation = BlockLocation.of(event.getWorld(), event.getPos());
-        if (grandSignShopRepository.retrieve(eventBlockLocation).isPresent()) {
-            event.setCanceled(true);
-        }
+        shopProtectionHandler.handleShopProtection(event);
     }
 
-    // TODO kirypto 2019-Aug-16: Move this to a protected block handler class
     @SubscribeEvent(priority = EventPriority.HIGH)
     public void onDetonation(ExplosionEvent.Detonate event) {
-        int affectedCountBefore = event.getAffectedBlocks().size();
-        List<BlockPos> protectedBlocks = new ArrayList<>();
-
-        for (BlockPos affectedBlock : event.getAffectedBlocks()) {
-            BlockLocation blockLocation = BlockLocation.of(event.getWorld(), affectedBlock);
-            boolean isBlockProtectedByShop = grandSignShopRepository.retrieve(blockLocation).isPresent();
-            if (isBlockProtectedByShop) {
-                protectedBlocks.add(affectedBlock);
-            }
-        }
-
-        for (BlockPos protectedBlock : protectedBlocks) {
-            event.getAffectedBlocks().remove(protectedBlock);
-        }
-
-        if (protectedBlocks.size() > 0) {
-            System.out.println(format("~~> Explosion includes shop blocks, filtering out %s blocks. Would have affected %s, now only affects %s.",
-                                      protectedBlocks.size(), affectedCountBefore, event.getAffectedBlocks().size()));
-        }
+        shopProtectionHandler.handleShopProtection(event);
     }
 }
