@@ -2,6 +2,9 @@ package kirypto.grandsignshops.Repository;
 
 import net.minecraft.util.math.BlockPos;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 public class BlockLocation {
 
     private final int dimension;
@@ -18,6 +21,36 @@ public class BlockLocation {
 
     public static BlockLocation of(int dimension, BlockPos blockPos) {
         return new BlockLocation(dimension, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        BlockLocation that = (BlockLocation) obj;
+
+        return new EqualsBuilder()
+                .append(dimension, that.dimension)
+                .append(x, that.x)
+                .append(y, that.y)
+                .append(z, that.z)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(dimension)
+                .append(x)
+                .append(y)
+                .append(z)
+                .toHashCode();
     }
 
     public int getDimension() {
