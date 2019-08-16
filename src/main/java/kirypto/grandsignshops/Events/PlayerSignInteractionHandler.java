@@ -44,16 +44,15 @@ public class PlayerSignInteractionHandler {
         this.grandSignShopRepository = grandSignShopRepository;
     }
 
-    public void handlePlayerSignInteraction(PlayerInteractEvent event) {
-        PlayerSignInteractionType interactionType;
-        if ((event instanceof PlayerInteractEvent.LeftClickBlock)) {
-            interactionType = PlayerSignInteractionType.LEFT_CLICK;
-        } else if ((event instanceof PlayerInteractEvent.RightClickBlock)) {
-            interactionType = PlayerSignInteractionType.RIGHT_CLICK;
-        } else {
-            return;
-        }
+    public void handleLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
+        handlePlayerInteraction(event, PlayerSignInteractionType.LEFT_CLICK);
+    }
 
+    public void handleRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        handlePlayerInteraction(event, PlayerSignInteractionType.RIGHT_CLICK);
+    }
+
+    private void handlePlayerInteraction(PlayerInteractEvent event, PlayerSignInteractionType interactionType) {
         EntityPlayer player = event.getEntityPlayer();
         World world = event.getWorld();
         BlockPos pos = event.getPos();
@@ -73,7 +72,6 @@ public class PlayerSignInteractionHandler {
         TileEntitySign tileEntitySign = (TileEntitySign) tileEntity;
 
         handleSignClick(player, tileEntitySign, interactionType);
-
     }
 
     private void handleSignClick(EntityPlayer player, TileEntitySign tileEntitySign, PlayerSignInteractionType signInteractionType) {

@@ -37,7 +37,12 @@ public class ForgeEventHandlers {
     }
 
     @SubscribeEvent(priority = EventPriority.NORMAL)
-    public void normalPriority_onPlayerInteractEvent(PlayerInteractEvent event) {
-        playerSignInteractionHandler.handlePlayerSignInteraction(event);
+    public void normalPriority_onLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
+        playerSignInteractionHandler.handleLeftClickBlock(event);
+    }
+
+    @SubscribeEvent(priority = EventPriority.NORMAL)
+    public void normalPriority_onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        playerSignInteractionHandler.handleRightClickBlock(event);
     }
 }
