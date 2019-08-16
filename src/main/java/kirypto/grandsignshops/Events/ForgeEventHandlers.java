@@ -31,8 +31,19 @@ public class ForgeEventHandlers {
         this.shopProtectionHandler = new ShopProtectionHandler(grandSignShopRepository);
     }
 
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public void highPriority_onBlockBreak(BlockEvent.BreakEvent event)
+    {
+        shopProtectionHandler.handleShopProtection(event);
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public void highPriority_onDetonation(ExplosionEvent.Detonate event) {
+        shopProtectionHandler.handleShopProtection(event);
+    }
+
     @SubscribeEvent
-    public void onPlayerInteractEvent(PlayerInteractEvent event) {
+    public void normalPriority_onPlayerInteractEvent(PlayerInteractEvent event) {
         PlayerSignInteractionType interactionType;
         if ((event instanceof PlayerInteractEvent.LeftClickBlock)) {
             interactionType = PlayerSignInteractionType.LEFT_CLICK;
@@ -61,16 +72,5 @@ public class ForgeEventHandlers {
         TileEntitySign tileEntitySign = (TileEntitySign) tileEntity;
 
         playerSignInteractionHandler.handleSignClick(player, tileEntitySign, interactionType);
-    }
-
-    @SubscribeEvent(priority = EventPriority.HIGH)
-    public void onBlockBreak(BlockEvent.BreakEvent event)
-    {
-        shopProtectionHandler.handleShopProtection(event);
-    }
-
-    @SubscribeEvent(priority = EventPriority.HIGH)
-    public void onDetonation(ExplosionEvent.Detonate event) {
-        shopProtectionHandler.handleShopProtection(event);
     }
 }
