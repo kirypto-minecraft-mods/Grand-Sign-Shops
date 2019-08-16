@@ -47,7 +47,7 @@ public class ForgeEventHandlers {
         shopProtectionHandler.handleShopProtection(event);
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.NORMAL)
     public void normalPriority_onPlayerInteractEvent(PlayerInteractEvent event) {
         PlayerSignInteractionType interactionType;
         if ((event instanceof PlayerInteractEvent.LeftClickBlock)) {
