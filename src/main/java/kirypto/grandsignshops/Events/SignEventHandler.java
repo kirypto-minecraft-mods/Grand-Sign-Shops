@@ -86,9 +86,9 @@ public class SignEventHandler {
             UnclosedCreateShopCommand unclosedCreateShopCommand,
             TileEntitySign tileEntitySign) {
         BlockPos signPos = tileEntitySign.getPos();
-        BlockLocation signLocation = BlockLocation.of(player.dimension, signPos);
+        BlockLocation signLocation = BlockLocation.of(player.getEntityWorld(), signPos);
         BlockPos chestPos = signPos.add(0, -1, 0);
-        BlockLocation chestLocation = BlockLocation.of(player.dimension, chestPos);
+        BlockLocation chestLocation = BlockLocation.of(player.getEntityWorld(), chestPos);
         if (!(player.getEntityWorld().getBlockState(signPos).getBlock() instanceof BlockWallSign)) {
             sendPlayerMessage(player, TextFormatStyle.TEST, "Not block wall sign.");
             return;

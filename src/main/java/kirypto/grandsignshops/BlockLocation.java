@@ -20,16 +20,9 @@ public class BlockLocation {
         this.z = z;
     }
 
-    /**
-     * @deprecated use {@link #of(World, BlockPos)} instead
-     */
-    @Deprecated
-    public static BlockLocation of(int dimension, BlockPos blockPos) {
-        return new BlockLocation(dimension, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+    public static BlockLocation of(World world, BlockPos blockPos) {
+        return new BlockLocation(world.provider.getDimension(), blockPos.getX(), blockPos.getY(), blockPos.getZ());
     }
-     public static BlockLocation of(World world, BlockPos blockPos) {
-         return new BlockLocation(world.provider.getDimension(), blockPos.getX(), blockPos.getY(), blockPos.getZ());
-     }
 
     @Override
     public boolean equals(Object obj) {

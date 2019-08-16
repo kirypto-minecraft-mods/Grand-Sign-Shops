@@ -72,7 +72,7 @@ public class ForgeEventHandlers {
     @SubscribeEvent(priority = EventPriority.HIGH)
     public void onBlockBreakTEST(BlockEvent.BreakEvent event)
     {
-        BlockLocation eventBlockLocation = BlockLocation.of(event.getPlayer().dimension, event.getPos());
+        BlockLocation eventBlockLocation = BlockLocation.of(event.getWorld(), event.getPos());
         if (grandSignShopRepository.retrieve(eventBlockLocation).isPresent()) {
             event.setCanceled(true);
         }
