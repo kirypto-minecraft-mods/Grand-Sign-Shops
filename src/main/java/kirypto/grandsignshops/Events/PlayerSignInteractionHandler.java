@@ -127,11 +127,11 @@ public class PlayerSignInteractionHandler {
         if (!(player.getEntityWorld().getBlockState(signPos).getBlock() instanceof BlockWallSign)) {
             sendPlayerMessage(player, TextFormatStyle.TEST, "Not block wall sign.");
             return;
-        } else if (!(player.getEntityWorld().getBlockState(chestPos).getBlock() instanceof BlockChest)) {
-            sendPlayerMessage(player, TextFormatStyle.WARNING, "Cannot create shop: No chest detected under sign.");
-            return;
         } else if (!Arrays.stream(tileEntitySign.signText).map(ITextComponent::getFormattedText).allMatch(String::isEmpty)) {
             sendPlayerMessage(player, TextFormatStyle.WARNING, "Cannot create shop: The sign must not have any text.");
+            return;
+        } else if (!(player.getEntityWorld().getBlockState(chestPos).getBlock() instanceof BlockChest)) {
+            sendPlayerMessage(player, TextFormatStyle.WARNING, "Cannot create shop: No chest detected under sign.");
             return;
         }
 
