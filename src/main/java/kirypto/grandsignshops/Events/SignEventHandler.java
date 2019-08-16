@@ -124,6 +124,8 @@ public class SignEventHandler {
         tileEntitySign.signText[2] = text("/(-_-)\\");
         tileEntitySign.signText[3] = text("/_______\\");
 
+        tileEntitySign.markDirty();
+
         sendPlayerMessage(player, TextFormatStyle.SUCCESS, format(
                 "Successfully (kinda) handled create command! Read params: %s%s %s:%s %s:%s",
                 itemName,
