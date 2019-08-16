@@ -1,11 +1,16 @@
 package kirypto.grandsignshops.Events;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
+import net.minecraft.block.BlockSign;
 import net.minecraft.block.BlockWallSign;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -39,7 +44,39 @@ public class PlayerSignInteractionHandler {
         this.grandSignShopRepository = grandSignShopRepository;
     }
 
-    public void handleSignClick(EntityPlayer player, TileEntitySign tileEntitySign, PlayerSignInteractionType signInteractionType) {
+    public void handlePlayerSignInteraction(PlayerInteractEvent event) {
+        PlayerSignInteractionType interactionType;
+        if ((event instanceof PlayerInteractEvent.LeftClickBlock)) {
+            interactionType = PlayerSignInteractionType.LEFT_CLICK;
+        } else if ((event instanceof PlayerInteractEvent.RightClickBlock)) {
+            interactionType = PlayerSignInteractionType.RIGHT_CLICK;
+        } else {
+            return;
+        }
+
+        EntityPlayer player = event.getEntityPlayer();
+        World world = event.getWorld();
+        BlockPos pos = event.getPos();
+        Block block = world.getBlockState(pos).getBlock();
+
+        if (!(block instanceof BlockSign)) {
+            sendPlayerMessage(player, TextFormatStyle.TEST, "Not a sign block.");
+            return;
+        }
+
+        TileEntity tileEntity = world.getTileEntity(pos);
+        if (!(tileEntity instanceof TileEntitySign)) {
+            sendPlayerMessage(player, TextFormatStyle.TEST, "Not a sign entity.");
+            return;
+        }
+
+        TileEntitySign tileEntitySign = (TileEntitySign) tileEntity;
+
+        handleSignClick(player, tileEntitySign, interactionType);
+
+    }
+
+    private void handleSignClick(EntityPlayer player, TileEntitySign tileEntitySign, PlayerSignInteractionType signInteractionType) {
         Optional<UnclosedShopCommand> unclosedShopCommandOptional = unclosedCommandRepository.retrieve(player.getUniqueID());
         if (unclosedShopCommandOptional.isPresent()) {
             UnclosedShopCommand unclosedShopCommand = unclosedShopCommandOptional.get();
