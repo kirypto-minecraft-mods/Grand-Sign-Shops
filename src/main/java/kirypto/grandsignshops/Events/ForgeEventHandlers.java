@@ -16,8 +16,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import kirypto.grandsignshops.BlockLocation;
 import kirypto.grandsignshops.PlayerSignInteractionType;
-import kirypto.grandsignshops.Repository.BlockLocation;
 import kirypto.grandsignshops.Repository.GrandSignShopRepository;
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 import kirypto.grandsignshops.TextFormatStyle;

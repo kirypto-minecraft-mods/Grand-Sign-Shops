@@ -1,4 +1,4 @@
-package kirypto.grandsignshops.Repository;
+package kirypto.grandsignshops;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

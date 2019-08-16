@@ -12,10 +12,10 @@ import java.time.Instant;
 import java.util.Arrays;
 import java.util.Optional;
 
+import kirypto.grandsignshops.BlockLocation;
 import kirypto.grandsignshops.GrandSignShop;
 import kirypto.grandsignshops.PlayerSignInteractionType;
 import kirypto.grandsignshops.PriceRange;
-import kirypto.grandsignshops.Repository.BlockLocation;
 import kirypto.grandsignshops.Repository.GrandSignShopRepository;
 import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 import kirypto.grandsignshops.TextFormatStyle;

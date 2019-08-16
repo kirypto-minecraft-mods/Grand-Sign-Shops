@@ -2,8 +2,6 @@ package kirypto.grandsignshops;
 
 import java.util.UUID;
 
-import kirypto.grandsignshops.Repository.BlockLocation;
-
 public class GrandSignShop {
     private final UUID playerID;
     private final BlockLocation signLocation;

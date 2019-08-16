@@ -2,6 +2,7 @@ package kirypto.grandsignshops.Repository;
 
 import java.util.Optional;
 
+import kirypto.grandsignshops.BlockLocation;
 import kirypto.grandsignshops.GrandSignShop;
 
 public interface GrandSignShopRepository {

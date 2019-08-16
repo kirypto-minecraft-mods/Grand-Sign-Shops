@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import kirypto.grandsignshops.BlockLocation;
 import kirypto.grandsignshops.GrandSignShop;
 
 public class JsonGrandSignShopRepository implements GrandSignShopRepository {
