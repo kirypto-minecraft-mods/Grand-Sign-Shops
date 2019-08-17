@@ -1,6 +1,7 @@
 package kirypto.grandsignshops;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -80,8 +81,8 @@ public class GrandSignShop {
         return itemName;
     }
 
-    public Integer getMetadata() {
-        return metadata;
+    public Optional<Integer> getMetadata() {
+        return Optional.ofNullable(metadata);
     }
 
     public PriceRange getBuyPrice() {
