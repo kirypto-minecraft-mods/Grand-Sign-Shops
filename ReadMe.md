@@ -4,7 +4,6 @@
 
 - Add store interaction functionality
   - If interacting, ensure only correct item type is in the container
-  - Calculate price based off of capacity
   - If buying, ensure shop has item and player has necessary amount
   - If selling, ensure shop has space and shop owner has amount
 - Actually save shops to disk (currently just in memory, so lost on restart)
