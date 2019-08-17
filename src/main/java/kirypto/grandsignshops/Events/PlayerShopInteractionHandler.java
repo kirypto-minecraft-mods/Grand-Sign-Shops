@@ -1,9 +1,11 @@
 package kirypto.grandsignshops.Events;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntitySign;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
@@ -12,6 +14,7 @@ import net.minecraftforge.common.DimensionManager;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.IntStream;
 
 import kirypto.grandsignshops.BlockLocation;
@@ -19,6 +22,7 @@ import kirypto.grandsignshops.GrandSignShop;
 import kirypto.grandsignshops.PlayerSignInteractionType;
 import kirypto.grandsignshops.PriceRange;
 import kirypto.grandsignshops.TextFormatStyle;
+import the_fireplace.grandeconomy.api.GrandEconomyApi;
 
 import static java.lang.String.format;
 import static kirypto.grandsignshops.Utilities.sendPlayerMessage;
@@ -66,9 +70,40 @@ public class PlayerShopInteractionHandler {
             return;
         }
 
+        UUID shopOwnerID = grandSignShop.getPlayerID();
+        UUID buyerID = player.getUniqueID();
+        if (GrandEconomyApi.getBalance(shopOwnerID) < exchangePrice) {
+            sendPlayerMessage(player, TextFormatStyle.WARNING, "Owner does not have enough funds.");
+            return;
+        }
+
+        NonNullList<ItemStack> playerInventory = player.inventory.mainInventory;
+        int playerItemCount = countAmountOfShopItemInInventory(playerInventory, grandSignShop);
+
+        if (playerItemCount < 1) {
+            sendPlayerMessage(player, TextFormatStyle.WARNING, "You do not have enough items.");
+            return;
+        }
+
         sendPlayerMessage(player, TextFormatStyle.TEST, format("Sell price is: %s", exchangePrice));
         sendPlayerMessage(player, TextFormatStyle.ERROR, "NOPE");
         throw new NotImplementedException("Attempt sell to shop not implemented");
+    }
+
+    private static int countAmountOfShopItemInInventory(NonNullList<ItemStack> inventory, GrandSignShop grandSignShop) {
+        ResourceLocation shopItemResource = new ResourceLocation(grandSignShop.getItemName());
+
+        return inventory.stream()
+                .filter(itemStack -> {
+                            boolean resourceNameMatches = shopItemResource.equals(itemStack.getItem().getRegistryName());
+                            if (!resourceNameMatches) {
+                                return false;
+                            }
+                            return grandSignShop.getMetadata().map(metadata -> metadata == itemStack.getMetadata()).orElse(true);
+                        }
+                )
+                .mapToInt(ItemStack::getCount)
+                .sum();
     }
 
     private static int calculateCurrentExchangePrice(GrandSignShop grandSignShop, PriceRange buyPrice) {
