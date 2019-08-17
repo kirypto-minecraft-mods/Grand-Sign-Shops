@@ -2,7 +2,6 @@
 
 ### Remaining Goals
 
-- Need to protect the blocks around the shops, not just the sign and chest themselves
 - Need to add ability for players to remove shops
 - Need to add ability for admin players to override and remove shops
 
