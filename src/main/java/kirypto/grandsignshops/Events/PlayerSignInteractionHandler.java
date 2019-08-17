@@ -57,15 +57,15 @@ public class PlayerSignInteractionHandler {
     private void handlePlayerInteraction(PlayerInteractEvent event, PlayerSignInteractionType interactionType) {
         EntityPlayer player = event.getEntityPlayer();
         World world = event.getWorld();
-        BlockPos pos = event.getPos();
-        Block block = world.getBlockState(pos).getBlock();
+        BlockPos blockPos = event.getPos();
+        Block block = world.getBlockState(blockPos).getBlock();
 
         if (!(block instanceof BlockSign)) {
             sendPlayerMessage(player, TextFormatStyle.TEST, "Not a sign block.");
             return;
         }
 
-        TileEntity tileEntity = world.getTileEntity(pos);
+        TileEntity tileEntity = world.getTileEntity(blockPos);
         if (!(tileEntity instanceof TileEntitySign)) {
             sendPlayerMessage(player, TextFormatStyle.TEST, "Not a sign entity.");
             return;
@@ -80,7 +80,7 @@ public class PlayerSignInteractionHandler {
             return;
         }
 
-        Optional<GrandSignShop> grandSignShopOptional = grandSignShopRepository.retrieve(BlockLocation.of(world, pos));
+        Optional<GrandSignShop> grandSignShopOptional = grandSignShopRepository.retrieve(BlockLocation.of(world, blockPos));
         if (grandSignShopOptional.isPresent()) {
             PlayerShopInteractionHandler.handleShopInteraction(player, grandSignShopOptional.get(), tileEntitySign, interactionType);
             //noinspection UnnecessaryReturnStatement
@@ -139,19 +139,19 @@ public class PlayerSignInteractionHandler {
                 .map(blockPos -> world.getBlockState(blockPos).getBlock())
                 .anyMatch(block -> block instanceof BlockContainer);
         if (isShopAlreadyLocatedAtLocation) {
-            sendPlayerMessage(player, TextFormatStyle.ERROR, "Cannot create shop: Shop already exists there.");
+            sendPlayerMessage(player, TextFormatStyle.WARNING, "Cannot create shop: Shop already exists there.");
             return;
         }
         if (signAlreadyHasText) {
-            sendPlayerMessage(player, TextFormatStyle.ERROR, "Cannot create shop: The sign must not have any text.");
+            sendPlayerMessage(player, TextFormatStyle.WARNING, "Cannot create shop: The sign must not have any text.");
             return;
         }
         if (!isChestLocatedUnderSign) {
-            sendPlayerMessage(player, TextFormatStyle.ERROR, "Cannot create shop: No chest detected under sign.");
+            sendPlayerMessage(player, TextFormatStyle.WARNING, "Cannot create shop: No chest detected under sign.");
             return;
         }
         if (isAnotherContainerAdjacentToChest) {
-            sendPlayerMessage(player, TextFormatStyle.ERROR, "Cannot create shop: Another container block is located next to the chest.");
+            sendPlayerMessage(player, TextFormatStyle.WARNING, "Cannot create shop: Another container block is located next to the chest.");
             return;
         }
         if (!isWallSignAtEventLocation) {
