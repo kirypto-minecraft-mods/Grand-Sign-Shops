@@ -77,6 +77,14 @@ public class PlayerSignInteractionHandler {
         if (unclosedShopCommandOptional.isPresent()) {
             UnclosedShopCommand unclosedShopCommand = unclosedShopCommandOptional.get();
             handleSignInteractionWithUnclosedShopCommand(player, unclosedShopCommand, tileEntitySign, interactionType);
+            return;
+        }
+
+        Optional<GrandSignShop> grandSignShopOptional = grandSignShopRepository.retrieve(BlockLocation.of(world, pos));
+        if (grandSignShopOptional.isPresent()) {
+            PlayerShopInteractionHandler.handleShopInteraction(player, grandSignShopOptional.get(), tileEntitySign, interactionType);
+            //noinspection UnnecessaryReturnStatement
+            return;
         }
     }
 
