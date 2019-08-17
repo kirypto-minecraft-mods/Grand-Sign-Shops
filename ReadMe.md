@@ -10,6 +10,7 @@
 - Actually save shops to disk (currently just in memory, so lost on restart)
 - Need to add ability for players to remove shops
 - Need to add ability for admin players to override and remove shops
+- Ensure metadata is accounted for correctly
 
 ### Known Bugs
 
