@@ -49,13 +49,25 @@ public class PlayerShopInteractionHandler {
 
     private static void attemptBuyFromShop(EntityPlayer player, GrandSignShop grandSignShop) {
         int exchangePrice = calculateCurrentExchangePrice(grandSignShop, grandSignShop.getBuyPrice());
+        if (player.isSneaking()) {
+            sendPlayerMessage(player, TextFormatStyle.NORMAL, format("Current cost to buy: %s", exchangePrice));
+            return;
+        }
+
         sendPlayerMessage(player, TextFormatStyle.TEST, format("Buy price is: %s", exchangePrice));
+        sendPlayerMessage(player, TextFormatStyle.ERROR, "NOPE");
         throw new NotImplementedException("Attempt buy from shop not implemented");
     }
 
     private static void attemptSellToShop(EntityPlayer player, GrandSignShop grandSignShop) {
         int exchangePrice = calculateCurrentExchangePrice(grandSignShop, grandSignShop.getSellPrice());
+        if (player.isSneaking()) {
+            sendPlayerMessage(player, TextFormatStyle.NORMAL, format("Current payout from sell: %s", exchangePrice));
+            return;
+        }
+
         sendPlayerMessage(player, TextFormatStyle.TEST, format("Sell price is: %s", exchangePrice));
+        sendPlayerMessage(player, TextFormatStyle.ERROR, "NOPE");
         throw new NotImplementedException("Attempt sell to shop not implemented");
     }
 
