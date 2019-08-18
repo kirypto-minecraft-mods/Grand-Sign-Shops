@@ -124,13 +124,13 @@ public class PlayerShopInteractionHandler {
         if (buyPrice.getLow() == buyPrice.getHigh()) {
             exchangePrice = buyPrice.getHigh();
         } else {
-            double percent = calculateItemStoragePercent(grandSignShop);
+            double percent = calcItemFilledPercentageForShop(grandSignShop);
             exchangePrice = (int) Math.floor((buyPrice.getHigh() - buyPrice.getLow()) * percent) + buyPrice.getLow();
         }
         return exchangePrice;
     }
 
-    private static double calculateItemStoragePercent(GrandSignShop grandSignShop) {
+    private static double calcItemFilledPercentageForShop(GrandSignShop grandSignShop) {
         TileEntityChest tileEntityChest = getTileEntityOfShop(grandSignShop);
         ItemStack itemStackToBeExchanged = getItemStackToBeExchanged(grandSignShop);
         return IntStream.range(0, tileEntityChest.getSizeInventory())
