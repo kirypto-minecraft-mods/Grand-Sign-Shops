@@ -6,7 +6,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
@@ -53,7 +52,6 @@ public class PlayerShopInteractionHandler {
                 attemptSellToShop(player, grandSignShop);
                 break;
         }
-
     }
 
     private static void attemptBuyFromShop(EntityPlayer player, GrandSignShop grandSignShop) {
@@ -85,8 +83,6 @@ public class PlayerShopInteractionHandler {
         }
 
         boolean doesPlayerHaveEnoughItemsToSell = doesPlayerHaveEnoughItemsToSell(player, itemStackToBeExchanged);
-        NonNullList<ItemStack> playerInventory = player.inventory.mainInventory;
-        int playerItemCount = countAmountOfShopItemInInventory(playerInventory, grandSignShop);
 
         if (!doesPlayerHaveEnoughItemsToSell) {
             sendPlayerMessage(player, TextFormatStyle.WARNING, "You do not have enough items to sell.");
@@ -96,22 +92,6 @@ public class PlayerShopInteractionHandler {
         sendPlayerMessage(player, TextFormatStyle.TEST, format("Sell price is: %s", exchangePrice));
         sendPlayerMessage(player, TextFormatStyle.ERROR, "NOPE");
         throw new NotImplementedException("Attempt sell to shop not implemented");
-    }
-
-    private static int countAmountOfShopItemInInventory(NonNullList<ItemStack> inventory, GrandSignShop grandSignShop) {
-        ResourceLocation shopItemResource = new ResourceLocation(grandSignShop.getItemName());
-
-        return inventory.stream()
-                .filter(itemStack -> {
-                            boolean resourceNameMatches = shopItemResource.equals(itemStack.getItem().getRegistryName());
-                            if (!resourceNameMatches) {
-                                return false;
-                            }
-                            return grandSignShop.getMetadata().map(metadata -> metadata == itemStack.getMetadata()).orElse(true);
-                        }
-                )
-                .mapToInt(ItemStack::getCount)
-                .sum();
     }
 
     private static boolean doesPlayerHaveEnoughItemsToSell(EntityPlayer player, ItemStack itemStackToBeExchanged) {
