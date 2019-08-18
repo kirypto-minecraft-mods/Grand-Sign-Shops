@@ -11,6 +11,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
 import org.apache.commons.lang3.NotImplementedException;
 
@@ -74,16 +76,19 @@ public class PlayerShopInteractionHandler {
 
         UUID shopOwnerID = grandSignShop.getPlayerID();
         UUID buyerID = player.getUniqueID();
+        ItemStack itemStackToBeExchanged = getItemStackToBeExchanged(grandSignShop);
+
         if (GrandEconomyApi.getBalance(shopOwnerID) < exchangePrice) {
             sendPlayerMessage(player, TextFormatStyle.WARNING, "Owner does not have enough funds.");
             return;
         }
 
+        boolean doesPlayerHaveEnoughItemsToSell = doesPlayerHaveEnoughItemsToSell(player, itemStackToBeExchanged);
         NonNullList<ItemStack> playerInventory = player.inventory.mainInventory;
         int playerItemCount = countAmountOfShopItemInInventory(playerInventory, grandSignShop);
 
-        if (playerItemCount < 1) {
-            sendPlayerMessage(player, TextFormatStyle.WARNING, "You do not have enough items.");
+        if (!doesPlayerHaveEnoughItemsToSell) {
+            sendPlayerMessage(player, TextFormatStyle.WARNING, "You do not have enough items to sell.");
             return;
         }
 
@@ -106,6 +111,12 @@ public class PlayerShopInteractionHandler {
                 )
                 .mapToInt(ItemStack::getCount)
                 .sum();
+    }
+
+    private static boolean doesPlayerHaveEnoughItemsToSell(EntityPlayer player, ItemStack itemStackToBeExchanged) {
+        PlayerMainInvWrapper playerMainInvWrapper = new PlayerMainInvWrapper(player.inventory);
+        int countOfQueriedItemInInventory = getCountOfQueriedItemInInventory(playerMainInvWrapper, itemStackToBeExchanged);
+        return countOfQueriedItemInInventory > itemStackToBeExchanged.getCount();
     }
 
     private static int calculateCurrentExchangePrice(GrandSignShop grandSignShop, PriceRange buyPrice) {
@@ -151,5 +162,13 @@ public class PlayerShopInteractionHandler {
         String itemName = grandSignShop.getItemName();
         Item shopExchangeItem = ForgeRegistryHelper.getItem(itemName);
         return new ItemStack(shopExchangeItem, 1, grandSignShop.getMetadata().orElse(0));
+    }
+
+    private static int getCountOfQueriedItemInInventory(IItemHandler playerMainInvWrapper, ItemStack itemStackToBeExchanged) {
+        return IntStream.range(0, playerMainInvWrapper.getSlots())
+                .mapToObj(playerMainInvWrapper::getStackInSlot)
+                .filter(itemStackToBeExchanged::isItemEqual)
+                .mapToInt(ItemStack::getCount)
+                .sum();
     }
 }
