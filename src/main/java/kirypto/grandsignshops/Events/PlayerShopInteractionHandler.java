@@ -13,8 +13,6 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
-import org.apache.commons.lang3.NotImplementedException;
-
 import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.IntStream;
@@ -60,9 +58,14 @@ public class PlayerShopInteractionHandler {
             return;
         }
 
-        sendPlayerMessage(player, TextFormatStyle.TEST, format("Buy price is: %s", exchangePrice));
-        sendPlayerMessage(player, TextFormatStyle.ERROR, "NOPE");
-        throw new NotImplementedException("Attempt buy from shop not implemented");
+        sendPlayerMessage(player, TextFormatStyle.ERROR,
+                          "Buy not finished implementation. Still need to:" +
+                                  "  - Check player has funds" +
+                                  "  - Check shop has items" +
+                                  "  - Check player has space" +
+                                  "  - Remove Item(s) from shop inv" +
+                                  "  - Add items to player inv" +
+                                  "  - Update player and shop balance");
     }
 
     private static void attemptSellToShop(EntityPlayer player, GrandSignShop grandSignShop) {
@@ -91,9 +94,11 @@ public class PlayerShopInteractionHandler {
             return;
         }
 
-        sendPlayerMessage(player, TextFormatStyle.TEST, format("Sell price is: %s", exchangePrice));
-        sendPlayerMessage(player, TextFormatStyle.ERROR, "NOPE");
-        throw new NotImplementedException("Attempt sell to shop not implemented");
+        sendPlayerMessage(player, TextFormatStyle.ERROR,
+                          "Sell not finished implementation. Still need to:" +
+                                  "  - Remove Item(s) from player inv" +
+                                  "  - Add items to shop inv" +
+                                  "  - Update player and shop balance");
     }
 
     private static boolean doesPlayerHaveEnoughItemsToSell(EntityPlayer player, ItemStack itemStackToBeExchanged) {
