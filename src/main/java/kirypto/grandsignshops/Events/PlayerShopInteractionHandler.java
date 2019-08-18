@@ -1,6 +1,7 @@
 package kirypto.grandsignshops.Events;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
@@ -22,6 +23,7 @@ import kirypto.grandsignshops.GrandSignShop;
 import kirypto.grandsignshops.PlayerSignInteractionType;
 import kirypto.grandsignshops.PriceRange;
 import kirypto.grandsignshops.TextFormatStyle;
+import kirypto.grandsignshops.Utilities.ForgeRegistryHelper;
 import the_fireplace.grandeconomy.api.GrandEconomyApi;
 
 import static java.lang.String.format;
@@ -143,5 +145,11 @@ public class PlayerShopInteractionHandler {
         WorldServer world = DimensionManager.getWorld(chestLocation.getDimension());
         TileEntity tileEntity = world.getTileEntity(new BlockPos(chestLocation.getX(), chestLocation.getY(), chestLocation.getZ()));
         return Objects.requireNonNull((TileEntityChest) tileEntity);
+    }
+
+    private static ItemStack getItemStackToBeExchanged(GrandSignShop grandSignShop) {
+        String itemName = grandSignShop.getItemName();
+        Item shopExchangeItem = ForgeRegistryHelper.getItem(itemName);
+        return new ItemStack(shopExchangeItem, 1, grandSignShop.getMetadata().orElse(0));
     }
 }
