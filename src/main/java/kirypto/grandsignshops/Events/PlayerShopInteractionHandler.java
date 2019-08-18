@@ -118,14 +118,11 @@ public class PlayerShopInteractionHandler {
     }
 
     private static double calculateItemStoragePercent(GrandSignShop grandSignShop) {
-        BlockLocation chestLocation = grandSignShop.getChestLocation();
-        ResourceLocation shopItemResource = new ResourceLocation(grandSignShop.getItemName());
-        WorldServer world = DimensionManager.getWorld(chestLocation.getDimension());
-        TileEntity tileEntity = world.getTileEntity(new BlockPos(chestLocation.getX(), chestLocation.getY(), chestLocation.getZ()));
-        TileEntityChest tileEntityChest = Objects.requireNonNull((TileEntityChest) tileEntity);
+        TileEntityChest tileEntityChest = getTileEntityOfShop(grandSignShop);
         for (int i = 0; i < tileEntityChest.getSizeInventory(); i++) {
             tileEntityChest.getStackInSlot(i);
         }
+        ResourceLocation shopItemResource = new ResourceLocation(grandSignShop.getItemName());
         return IntStream.range(0, tileEntityChest.getSizeInventory())
                 .mapToObj(tileEntityChest::getStackInSlot)
                 .filter(itemStack -> {
@@ -142,5 +139,12 @@ public class PlayerShopInteractionHandler {
                 .mapToDouble(itemStack -> itemStack.isEmpty() ? 0.0 : itemStack.getCount() * 1.0 / itemStack.getMaxStackSize())
                 .average()
                 .orElse(0.0);
+    }
+
+    private static TileEntityChest getTileEntityOfShop(GrandSignShop grandSignShop) {
+        BlockLocation chestLocation = grandSignShop.getChestLocation();
+        WorldServer world = DimensionManager.getWorld(chestLocation.getDimension());
+        TileEntity tileEntity = world.getTileEntity(new BlockPos(chestLocation.getX(), chestLocation.getY(), chestLocation.getZ()));
+        return Objects.requireNonNull((TileEntityChest) tileEntity);
     }
 }
