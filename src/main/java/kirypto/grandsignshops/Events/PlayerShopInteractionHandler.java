@@ -81,10 +81,13 @@ public class PlayerShopInteractionHandler {
             return;
         }
 
-        boolean doesPlayerHaveEnoughItemsToSell = doesPlayerHaveEnoughItemsToSell(player, itemStackToBeExchanged);
-
-        if (!doesPlayerHaveEnoughItemsToSell) {
+        if (!doesPlayerHaveEnoughItemsToSell(player, itemStackToBeExchanged)) {
             sendPlayerMessage(player, TextFormatStyle.WARNING, "You do not have enough items to sell.");
+            return;
+        }
+
+        if (!doesShopHaveEnoughSpaceForPlayerToSell(grandSignShop, itemStackToBeExchanged)) {
+            sendPlayerMessage(player, TextFormatStyle.WARNING, "The shop does not have enough space for the sale.");
             return;
         }
 
