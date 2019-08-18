@@ -6,7 +6,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
@@ -133,21 +132,11 @@ public class PlayerShopInteractionHandler {
 
     private static double calculateItemStoragePercent(GrandSignShop grandSignShop) {
         TileEntityChest tileEntityChest = getTileEntityOfShop(grandSignShop);
-        ResourceLocation shopItemResource = new ResourceLocation(grandSignShop.getItemName());
+        ItemStack itemStackToBeExchanged = getItemStackToBeExchanged(grandSignShop);
         return IntStream.range(0, tileEntityChest.getSizeInventory())
                 .mapToObj(tileEntityChest::getStackInSlot)
-                .filter(itemStack -> {
-                            if (itemStack.isEmpty()) {
-                                return true;
-                            }
-                            boolean resourceNameMatches = shopItemResource.equals(itemStack.getItem().getRegistryName());
-                            if (!resourceNameMatches) {
-                                return false;
-                            }
-                            return grandSignShop.getMetadata().map(metadata -> metadata == itemStack.getMetadata()).orElse(true);
-                        }
-                )
-                .mapToDouble(itemStack -> itemStack.isEmpty() ? 0.0 : itemStack.getCount() * 1.0 / itemStack.getMaxStackSize())
+                .filter(itemStack -> itemStack.isEmpty() || itemStack.isItemEqual(itemStackToBeExchanged))
+                .mapToDouble(itemStack -> itemStack.isEmpty() ? 0.0 : calcItemStackFillPercentage(itemStack))
                 .average()
                 .orElse(0.0);
     }
@@ -163,6 +152,10 @@ public class PlayerShopInteractionHandler {
         String itemName = grandSignShop.getItemName();
         Item shopExchangeItem = ForgeRegistryHelper.getItem(itemName);
         return new ItemStack(shopExchangeItem, 1, grandSignShop.getMetadata().orElse(0));
+    }
+
+    private static double calcItemStackFillPercentage(ItemStack itemStack) {
+        return itemStack.getCount() * 1.0 / itemStack.getMaxStackSize();
     }
 
     private static int getSpaceForQueriedItemInInventory(IItemHandler inventoryWrapper, ItemStack itemStackToBeExchanged) {
