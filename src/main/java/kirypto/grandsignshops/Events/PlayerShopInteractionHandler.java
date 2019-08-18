@@ -152,9 +152,9 @@ public class PlayerShopInteractionHandler {
         return new ItemStack(shopExchangeItem, 1, grandSignShop.getMetadata().orElse(0));
     }
 
-    private static int getCountOfQueriedItemInInventory(IItemHandler playerMainInvWrapper, ItemStack itemStackToBeExchanged) {
-        return IntStream.range(0, playerMainInvWrapper.getSlots())
-                .mapToObj(playerMainInvWrapper::getStackInSlot)
+    private static int getCountOfQueriedItemInInventory(IItemHandler inventoryWrapper, ItemStack itemStackToBeExchanged) {
+        return IntStream.range(0, inventoryWrapper.getSlots())
+                .mapToObj(inventoryWrapper::getStackInSlot)
                 .filter(itemStackToBeExchanged::isItemEqual)
                 .mapToInt(ItemStack::getCount)
                 .sum();
