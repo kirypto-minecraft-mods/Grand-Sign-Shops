@@ -107,6 +107,19 @@ public class PlayerShopInteractionHandler {
         return countOfQueriedItemInInventory > itemStackToBeExchanged.getCount();
     }
 
+    private static boolean doesPlayerHaveEnoughSpaceToBuy(EntityPlayer player, ItemStack itemStackToBeExchanged) {
+        PlayerMainInvWrapper playerMainInvWrapper = new PlayerMainInvWrapper(player.inventory);
+        int spaceForQueriedItemInInventory = getSpaceForQueriedItemInInventory(playerMainInvWrapper, itemStackToBeExchanged);
+        return spaceForQueriedItemInInventory > itemStackToBeExchanged.getCount();
+    }
+
+    private static boolean doesShopHaveEnoughSpaceForPlayerToSell(GrandSignShop grandSignShop, ItemStack itemStackToBeExchanged) {
+        TileEntityChest shopChestTileEntity = getTileEntityOfShop(grandSignShop);
+        InvWrapper shopChestInventoryWrapper = new InvWrapper(shopChestTileEntity);
+        int spaceForQueriedItemInInventory = getSpaceForQueriedItemInInventory(shopChestInventoryWrapper, itemStackToBeExchanged);
+        return spaceForQueriedItemInInventory > itemStackToBeExchanged.getCount();
+    }
+
     private static int calculateCurrentExchangePrice(GrandSignShop grandSignShop, PriceRange buyPrice) {
         int exchangePrice;
         if (buyPrice.getLow() == buyPrice.getHigh()) {
@@ -150,6 +163,15 @@ public class PlayerShopInteractionHandler {
         String itemName = grandSignShop.getItemName();
         Item shopExchangeItem = ForgeRegistryHelper.getItem(itemName);
         return new ItemStack(shopExchangeItem, 1, grandSignShop.getMetadata().orElse(0));
+    }
+
+    private static int getSpaceForQueriedItemInInventory(IItemHandler inventoryWrapper, ItemStack itemStackToBeExchanged) {
+        int maxStackSize = itemStackToBeExchanged.getMaxStackSize();
+        return IntStream.range(0, inventoryWrapper.getSlots())
+                .mapToObj(inventoryWrapper::getStackInSlot)
+                .filter(itemStack -> itemStack.isEmpty() || itemStackToBeExchanged.isItemEqual(itemStack))
+                .mapToInt(itemStack -> itemStack.isEmpty() ? maxStackSize : maxStackSize - itemStack.getCount())
+                .sum();
     }
 
     private static int getCountOfQueriedItemInInventory(IItemHandler inventoryWrapper, ItemStack itemStackToBeExchanged) {
