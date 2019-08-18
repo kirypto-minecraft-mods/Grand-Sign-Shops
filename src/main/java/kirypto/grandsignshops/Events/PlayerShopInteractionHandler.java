@@ -119,9 +119,6 @@ public class PlayerShopInteractionHandler {
 
     private static double calculateItemStoragePercent(GrandSignShop grandSignShop) {
         TileEntityChest tileEntityChest = getTileEntityOfShop(grandSignShop);
-        for (int i = 0; i < tileEntityChest.getSizeInventory(); i++) {
-            tileEntityChest.getStackInSlot(i);
-        }
         ResourceLocation shopItemResource = new ResourceLocation(grandSignShop.getItemName());
         return IntStream.range(0, tileEntityChest.getSizeInventory())
                 .mapToObj(tileEntityChest::getStackInSlot)
