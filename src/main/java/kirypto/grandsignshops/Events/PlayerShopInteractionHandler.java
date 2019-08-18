@@ -12,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.InvWrapper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
 import org.apache.commons.lang3.NotImplementedException;
@@ -116,6 +117,13 @@ public class PlayerShopInteractionHandler {
     private static boolean doesPlayerHaveEnoughItemsToSell(EntityPlayer player, ItemStack itemStackToBeExchanged) {
         PlayerMainInvWrapper playerMainInvWrapper = new PlayerMainInvWrapper(player.inventory);
         int countOfQueriedItemInInventory = getCountOfQueriedItemInInventory(playerMainInvWrapper, itemStackToBeExchanged);
+        return countOfQueriedItemInInventory > itemStackToBeExchanged.getCount();
+    }
+
+    private static boolean doesShopHaveEnoughItemsForPlayerToBuy(GrandSignShop grandSignShop, ItemStack itemStackToBeExchanged) {
+        TileEntityChest shopChestTileEntity = getTileEntityOfShop(grandSignShop);
+        InvWrapper shopChestInventoryWrapper = new InvWrapper(shopChestTileEntity);
+        int countOfQueriedItemInInventory = getCountOfQueriedItemInInventory(shopChestInventoryWrapper, itemStackToBeExchanged);
         return countOfQueriedItemInInventory > itemStackToBeExchanged.getCount();
     }
 
