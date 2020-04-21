@@ -5,9 +5,6 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="true" />
     <option name="FORMATTER_TAGS_ENABLED" value="true" />
     <option name="SOFT_MARGINS" value="150" />
-    <CsvCodeStyleSettings>
-      <option name="SPACE_AFTER_SEPARATOR" value="true" />
-    </CsvCodeStyleSettings>
     <DB2CodeStyleSettings version="2">
       <option name="KEYWORD_CASE" value="0" />
       <option name="TYPE_CASE" value="1" />
