@@ -1,5 +1,5 @@
-package kirypto.grandsignshops.UnclosedShopCommands;
-
-public enum UnclosedShopCommandType {
-    CREATE
-}
+// package kirypto.grandsignshops.UnclosedShopCommands;
+//
+// public enum UnclosedShopCommandType {
+//     CREATE
+// }
