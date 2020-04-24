@@ -35,7 +35,7 @@ issueTrackerURL="https://github.com/kirypto-minecraft-mods/Grand-Sign-Shops/issu
     logoFile="icon.png" #optional
 
     # A text field displayed in the mod UI
-    credits="Thanks for selling (and buying) with kirypto!" #optional
+    credits="Available thanks Forge (of course) and to The_Fireplace for Grand Economy" #optional
 
     # A text field displayed in the mod UI
     authors="kirypto" #optional
