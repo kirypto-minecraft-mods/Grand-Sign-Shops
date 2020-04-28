@@ -19,7 +19,7 @@
 // import java.util.Optional;
 // import java.util.stream.Stream;
 //
-// import kirypto.grandsignshops.BlockLocation;
+// import kirypto.grandsignshops.domain.BlockLocation;
 // import kirypto.grandsignshops.domain.GrandSignShop;
 // import kirypto.grandsignshops.PlayerSignInteractionType;
 // import kirypto.grandsignshops.PriceRange;

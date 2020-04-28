@@ -10,7 +10,7 @@
 // import java.util.Optional;
 // import java.util.UUID;
 //
-// import kirypto.grandsignshops.BlockLocation;
+// import kirypto.grandsignshops.domain.BlockLocation;
 // import kirypto.grandsignshops.domain.GrandSignShop;
 // import kirypto.grandsignshops.Repository.GrandSignShopRepository;
 //
