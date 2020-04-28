@@ -18,7 +18,7 @@
 // import java.util.stream.IntStream;
 //
 // import kirypto.grandsignshops.BlockLocation;
-// import kirypto.grandsignshops.GrandSignShop;
+// import kirypto.grandsignshops.domain.GrandSignShop;
 // import kirypto.grandsignshops.PlayerSignInteractionType;
 // import kirypto.grandsignshops.PriceRange;
 // import kirypto.grandsignshops.TextFormatStyle;

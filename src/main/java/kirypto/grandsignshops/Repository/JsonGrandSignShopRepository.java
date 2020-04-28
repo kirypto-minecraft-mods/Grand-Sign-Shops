@@ -8,7 +8,7 @@
 // import java.util.Optional;
 //
 // import kirypto.grandsignshops.BlockLocation;
-// import kirypto.grandsignshops.GrandSignShop;
+// import kirypto.grandsignshops.domain.GrandSignShop;
 //
 // public class JsonGrandSignShopRepository implements GrandSignShopRepository {
 //     private final File grandSignShopsRootFolder;

@@ -3,7 +3,7 @@
 // import java.util.Optional;
 //
 // import kirypto.grandsignshops.BlockLocation;
-// import kirypto.grandsignshops.GrandSignShop;
+// import kirypto.grandsignshops.domain.GrandSignShop;
 //
 // public interface GrandSignShopRepository {
 //     void create(GrandSignShop grandSignShop);

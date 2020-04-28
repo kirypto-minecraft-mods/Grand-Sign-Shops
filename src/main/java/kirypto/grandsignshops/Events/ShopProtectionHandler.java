@@ -11,7 +11,7 @@
 // import java.util.UUID;
 //
 // import kirypto.grandsignshops.BlockLocation;
-// import kirypto.grandsignshops.GrandSignShop;
+// import kirypto.grandsignshops.domain.GrandSignShop;
 // import kirypto.grandsignshops.Repository.GrandSignShopRepository;
 //
 // public class ShopProtectionHandler {
