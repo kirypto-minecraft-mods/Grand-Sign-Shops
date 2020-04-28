@@ -22,7 +22,7 @@
 // import kirypto.grandsignshops.domain.BlockLocation;
 // import kirypto.grandsignshops.domain.GrandSignShop;
 // import kirypto.grandsignshops.PlayerSignInteractionType;
-// import kirypto.grandsignshops.PriceRange;
+// import kirypto.grandsignshops.domain.PriceRange;
 // import kirypto.grandsignshops.Repository.GrandSignShopRepository;
 // import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 // import kirypto.grandsignshops.TextFormatStyle;

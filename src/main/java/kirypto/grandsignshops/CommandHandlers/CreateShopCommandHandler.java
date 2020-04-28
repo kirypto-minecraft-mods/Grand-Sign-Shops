@@ -9,7 +9,7 @@
 //
 // import javax.annotation.ParametersAreNonnullByDefault;
 //
-// import kirypto.grandsignshops.PriceRange;
+// import kirypto.grandsignshops.domain.PriceRange;
 // import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 // import kirypto.grandsignshops.UnclosedShopCommands.UnclosedCreateShopCommand;
 // import kirypto.grandsignshops.UnclosedShopCommands.UnclosedShopCommandType;

@@ -3,7 +3,7 @@
 // import java.util.Optional;
 // import java.util.UUID;
 //
-// import kirypto.grandsignshops.PriceRange;
+// import kirypto.grandsignshops.domain.PriceRange;
 //
 // public class UnclosedCreateShopCommand extends UnclosedShopCommand {
 //     private final String itemName;
