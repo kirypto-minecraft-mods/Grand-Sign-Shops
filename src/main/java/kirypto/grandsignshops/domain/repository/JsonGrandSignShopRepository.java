@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import kirypto.grandsignshops.domain.BlockLocation;
 import kirypto.grandsignshops.domain.GrandSignShop;
@@ -26,23 +27,18 @@ public class JsonGrandSignShopRepository implements GrandSignShopRepository {
     public void create(GrandSignShop grandSignShop) {
         BlockLocation signLocation = grandSignShop.getSignLocation();
         signLocationToGrandSignShopLocation.put(signLocation, grandSignShop);
-        allGrandSignShopLocationsToCorrespondingSignLocation.put(grandSignShop.getChestLocation(), signLocation);
-        for (BlockLocation additionalProtectedLocation : grandSignShop.getAdditionalProtectedLocations()) {
-            allGrandSignShopLocationsToCorrespondingSignLocation.put(additionalProtectedLocation, signLocation);
-        }
+
+        Stream.concat(Stream.of(grandSignShop.getChestLocation(), grandSignShop.getSignLocation()),
+                      grandSignShop.getAdditionalProtectedLocations().stream())
+                .forEach(blockLocation -> allGrandSignShopLocationsToCorrespondingSignLocation.put(blockLocation, signLocation));
+
         // TODO kirypto 2020-Apr-27: Persist to grandSignShopsRootFolder
     }
 
     @Override
     public Optional<GrandSignShop> retrieve(BlockLocation blockLocation) {
-        if (signLocationToGrandSignShopLocation.containsKey(blockLocation)) {
-            return Optional.of(signLocationToGrandSignShopLocation.get(blockLocation));
-        }
-        if (allGrandSignShopLocationsToCorrespondingSignLocation.containsKey(blockLocation)) {
-            BlockLocation signLocation = allGrandSignShopLocationsToCorrespondingSignLocation.get(blockLocation);
-            return Optional.of(signLocationToGrandSignShopLocation.get(signLocation));
-        }
-        return Optional.empty();
+        return Optional.ofNullable(allGrandSignShopLocationsToCorrespondingSignLocation.get(blockLocation))
+                .map(signLocationToGrandSignShopLocation::get);
     }
 
     @Override
