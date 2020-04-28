@@ -12,7 +12,7 @@
 //
 // import kirypto.grandsignshops.domain.BlockLocation;
 // import kirypto.grandsignshops.domain.GrandSignShop;
-// import kirypto.grandsignshops.Repository.GrandSignShopRepository;
+// import kirypto.grandsignshops.domain.repository.GrandSignShopRepository;
 //
 // public class ShopProtectionHandler {
 //     private final GrandSignShopRepository grandSignShopRepository;

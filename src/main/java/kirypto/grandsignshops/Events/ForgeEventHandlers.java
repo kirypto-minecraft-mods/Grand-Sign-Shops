@@ -6,7 +6,7 @@
 // import net.minecraftforge.fml.common.eventhandler.EventPriority;
 // import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 //
-// import kirypto.grandsignshops.Repository.GrandSignShopRepository;
+// import kirypto.grandsignshops.domain.repository.GrandSignShopRepository;
 // import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 //
 // public class ForgeEventHandlers {
