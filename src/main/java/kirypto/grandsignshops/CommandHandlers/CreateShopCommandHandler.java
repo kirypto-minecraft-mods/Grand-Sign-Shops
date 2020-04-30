@@ -11,7 +11,7 @@
 //
 // import kirypto.grandsignshops.domain.PriceRange;
 // import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
-// import kirypto.grandsignshops.UnclosedShopCommands.UnclosedCreateShopCommand;
+// import kirypto.grandsignshops.domain.command.UnclosedCreateShopCommand;
 // import kirypto.grandsignshops.domain.command.UnclosedShopCommandType;
 // import kirypto.grandsignshops.Utilities.ForgeRegistryHelper;
 // import mcp.MethodsReturnNonnullByDefault;
