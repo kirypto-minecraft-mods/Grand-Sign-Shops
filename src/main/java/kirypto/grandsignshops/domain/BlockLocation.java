@@ -17,9 +17,9 @@ public class BlockLocation {
         this.z = z;
     }
 
-    // public static BlockLocation of(World world, BlockPos blockPos) {
-    //     return new BlockLocation(world.provider.getDimension(), blockPos.getX(), blockPos.getY(), blockPos.getZ());
-    // }
+    public static BlockLocation of(int dimension, int x, int y, int z) {
+        return new BlockLocation(dimension, x, y, z);
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -68,6 +68,6 @@ public class BlockLocation {
     }
 
     public static BlockLocation shift(BlockLocation blockLocation, int dx, int dy, int dz) {
-        return new BlockLocation(blockLocation.dimension, blockLocation.x + dx, blockLocation.y + dy, blockLocation.z + dz);
+        return of(blockLocation.dimension, blockLocation.x + dx, blockLocation.y + dy, blockLocation.z + dz);
     }
 }
