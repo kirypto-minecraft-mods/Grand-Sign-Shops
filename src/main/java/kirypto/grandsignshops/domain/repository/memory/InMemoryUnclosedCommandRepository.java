@@ -1,4 +1,4 @@
-package kirypto.grandsignshops.domain.repository;
+package kirypto.grandsignshops.domain.repository.memory;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import kirypto.grandsignshops.domain.command.UnclosedShopCommand;
+import kirypto.grandsignshops.domain.repository.UnclosedCommandRepository;
 
 public class InMemoryUnclosedCommandRepository implements UnclosedCommandRepository {
 

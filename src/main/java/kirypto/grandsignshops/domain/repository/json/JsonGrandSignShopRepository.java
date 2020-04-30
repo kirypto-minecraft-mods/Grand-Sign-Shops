@@ -1,4 +1,4 @@
-package kirypto.grandsignshops.domain.repository;
+package kirypto.grandsignshops.domain.repository.json;
 
 import org.apache.commons.lang3.NotImplementedException;
 
@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import kirypto.grandsignshops.domain.BlockLocation;
 import kirypto.grandsignshops.domain.GrandSignShop;
+import kirypto.grandsignshops.domain.repository.GrandSignShopRepository;
 
 public class JsonGrandSignShopRepository implements GrandSignShopRepository {
     private final File grandSignShopsRootFolder;
