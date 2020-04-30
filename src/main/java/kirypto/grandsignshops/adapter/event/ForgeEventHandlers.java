@@ -1,4 +1,4 @@
-package kirypto.grandsignshops.Events;
+package kirypto.grandsignshops.adapter.event;
 
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
