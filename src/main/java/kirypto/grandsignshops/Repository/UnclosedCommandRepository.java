@@ -3,7 +3,7 @@
 // import java.util.Optional;
 // import java.util.UUID;
 //
-// import kirypto.grandsignshops.UnclosedShopCommands.UnclosedShopCommand;
+// import kirypto.grandsignshops.domain.command.UnclosedShopCommand;
 //
 // public interface UnclosedCommandRepository {
 //     void create(UnclosedShopCommand unclosedShopCommand);

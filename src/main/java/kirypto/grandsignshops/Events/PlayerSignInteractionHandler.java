@@ -27,7 +27,7 @@
 // import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
 // import kirypto.grandsignshops.TextFormatStyle;
 // import kirypto.grandsignshops.UnclosedShopCommands.UnclosedCreateShopCommand;
-// import kirypto.grandsignshops.UnclosedShopCommands.UnclosedShopCommand;
+// import kirypto.grandsignshops.domain.command.UnclosedShopCommand;
 //
 // import static java.lang.String.format;
 // import static kirypto.grandsignshops.Utilities.sendPlayerMessage;
