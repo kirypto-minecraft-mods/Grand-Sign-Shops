@@ -3,7 +3,7 @@ package kirypto.grandsignshops.domain.command;
 import java.time.Instant;
 import java.util.UUID;
 
-public class UnclosedShopCommand {
+public abstract class UnclosedShopCommand {
     private final UnclosedShopCommandType unclosedShopCommandType;
     private final UUID playerUniqueId;
     private final Instant creationTime;
