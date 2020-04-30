@@ -7,7 +7,7 @@
 // import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 //
 // import kirypto.grandsignshops.domain.repository.GrandSignShopRepository;
-// import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
+// import kirypto.grandsignshops.domain.repository.UnclosedCommandRepository;
 //
 // public class ForgeEventHandlers {
 //     private final PlayerSignInteractionHandler playerSignInteractionHandler;

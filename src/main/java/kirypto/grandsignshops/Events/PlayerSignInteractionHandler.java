@@ -24,7 +24,7 @@
 // import kirypto.grandsignshops.PlayerSignInteractionType;
 // import kirypto.grandsignshops.domain.PriceRange;
 // import kirypto.grandsignshops.domain.repository.GrandSignShopRepository;
-// import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
+// import kirypto.grandsignshops.domain.repository.UnclosedCommandRepository;
 // import kirypto.grandsignshops.TextFormatStyle;
 // import kirypto.grandsignshops.domain.command.UnclosedCreateShopCommand;
 // import kirypto.grandsignshops.domain.command.UnclosedShopCommand;

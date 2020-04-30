@@ -10,7 +10,7 @@
 // import javax.annotation.ParametersAreNonnullByDefault;
 //
 // import kirypto.grandsignshops.domain.PriceRange;
-// import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
+// import kirypto.grandsignshops.domain.repository.UnclosedCommandRepository;
 // import kirypto.grandsignshops.domain.command.UnclosedCreateShopCommand;
 // import kirypto.grandsignshops.domain.command.UnclosedShopCommandType;
 // import kirypto.grandsignshops.Utilities.ForgeRegistryHelper;

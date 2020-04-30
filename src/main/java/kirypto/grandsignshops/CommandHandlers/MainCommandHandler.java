@@ -16,7 +16,7 @@
 //
 // import javax.annotation.ParametersAreNonnullByDefault;
 //
-// import kirypto.grandsignshops.Repository.UnclosedCommandRepository;
+// import kirypto.grandsignshops.domain.repository.UnclosedCommandRepository;
 // import mcp.MethodsReturnNonnullByDefault;
 //
 // import static java.lang.String.format;
